@@ -2,7 +2,7 @@ cff-version: 1.2.0
 message: "If you use this software, cite the EffiSkill software and the associated research preprint."
 title: "EffiSkill"
 type: software
-version: 0.2.0
+version: 0.2.1
 date-released: 2026-11-13
 license: MIT
 url: "https://github.com/zimuwang-real/EffiSkill"

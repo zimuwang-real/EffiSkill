@@ -67,13 +67,6 @@
       "transformation": "byte_identical"
     },
     {
-      "path": "src/effiskill_artifact/data/rq1/evaluation/efficoder_cpp/public/stats_canonical_cpp.json",
-      "source_member": "effiskill_ase2026_artifact/data/rq1/evaluation/efficoder_cpp/public/stats_canonical_cpp.json",
-      "source_sha256": "6f33358aa84c3efeddce0d40c0abee32eda12e9d1f0216bbcdfc2daac8ea1bf6",
-      "sha256": "6f33358aa84c3efeddce0d40c0abee32eda12e9d1f0216bbcdfc2daac8ea1bf6",
-      "transformation": "byte_identical"
-    },
-    {
       "path": "src/effiskill_artifact/data/rq1/evaluation/efficoder_cpp/public/stats_rank_1.json",
       "source_member": "effiskill_ase2026_artifact/data/rq1/evaluation/efficoder_cpp/public/stats_rank_1.json",
       "source_sha256": "025ddbac3fbb8627b5a42e5d53ca185ba956ddc850b335dbbde3965b4d72ffb3",
@@ -190,13 +183,6 @@
       "source_member": "effiskill_ase2026_artifact/data/rq1/evaluation/efficoder_qwen/private/stats_rank_8.json",
       "source_sha256": "a889a109df41327e4d7ca7d0bf26b6077cc19b2af5328ba1d10b0c59ae34ef80",
       "sha256": "a889a109df41327e4d7ca7d0bf26b6077cc19b2af5328ba1d10b0c59ae34ef80",
-      "transformation": "byte_identical"
-    },
-    {
-      "path": "src/effiskill_artifact/data/rq1/evaluation/efficoder_qwen/public/stats_original.json",
-      "source_member": "effiskill_ase2026_artifact/data/rq1/evaluation/efficoder_qwen/public/stats_original.json",
-      "source_sha256": "c4589eb3f82091689d7166d5ffe32aa104d83ed9a2c3bc56459f3c0221acde97",
-      "sha256": "c4589eb3f82091689d7166d5ffe32aa104d83ed9a2c3bc56459f3c0221acde97",
       "transformation": "byte_identical"
     },
     {
@@ -319,13 +305,6 @@
       "transformation": "byte_identical"
     },
     {
-      "path": "src/effiskill_artifact/data/rq1/evaluation/effiskill_cpp_gpt/public/stats_canonical_cpp.json",
-      "source_member": "effiskill_ase2026_artifact/data/rq1/evaluation/effiskill_cpp_gpt/public/stats_canonical_cpp.json",
-      "source_sha256": "5db4c5a027bd298335620290516bf547bf7eaec8105d309f8e0854b7c88ded5f",
-      "sha256": "5db4c5a027bd298335620290516bf547bf7eaec8105d309f8e0854b7c88ded5f",
-      "transformation": "byte_identical"
-    },
-    {
       "path": "src/effiskill_artifact/data/rq1/evaluation/effiskill_cpp_gpt/public/stats_rank_1.json",
       "source_member": "effiskill_ase2026_artifact/data/rq1/evaluation/effiskill_cpp_gpt/public/stats_rank_1.json",
       "source_sha256": "4955bb3abaddf59d4437f5019b61a908e3d5d37eca59ffa369934b79ec05b2e3",
@@ -442,13 +421,6 @@
       "source_member": "effiskill_ase2026_artifact/data/rq1/evaluation/effiskill_cpp_qwen/private/stats_rank_8.json",
       "source_sha256": "2ae8e869419577c1365ae0e051c638ddb67d5412bd24ad2dd0053b8705b4174a",
       "sha256": "2ae8e869419577c1365ae0e051c638ddb67d5412bd24ad2dd0053b8705b4174a",
-      "transformation": "byte_identical"
-    },
-    {
-      "path": "src/effiskill_artifact/data/rq1/evaluation/effiskill_cpp_qwen/public/stats_canonical_cpp.json",
-      "source_member": "effiskill_ase2026_artifact/data/rq1/evaluation/effiskill_cpp_qwen/public/stats_canonical_cpp.json",
-      "source_sha256": "348a73289c5a364fdb15af570b3e04b9031178951fd24635d72fc980c71812a0",
-      "sha256": "348a73289c5a364fdb15af570b3e04b9031178951fd24635d72fc980c71812a0",
       "transformation": "byte_identical"
     },
     {
@@ -571,13 +543,6 @@
       "transformation": "byte_identical"
     },
     {
-      "path": "src/effiskill_artifact/data/rq1/evaluation/fasterpy_gpt5min_cpp/public/stats_canonical_cpp.json",
-      "source_member": "effiskill_ase2026_artifact/data/rq1/evaluation/fasterpy_gpt5min_cpp/public/stats_canonical_cpp.json",
-      "source_sha256": "28da72e03ac0f60f9711d684db0cbef5b2d34c11d544462457403b5cc6701ab9",
-      "sha256": "28da72e03ac0f60f9711d684db0cbef5b2d34c11d544462457403b5cc6701ab9",
-      "transformation": "byte_identical"
-    },
-    {
       "path": "src/effiskill_artifact/data/rq1/evaluation/fasterpy_gpt5min_cpp/public/stats_rank_1.json",
       "source_member": "effiskill_ase2026_artifact/data/rq1/evaluation/fasterpy_gpt5min_cpp/public/stats_rank_1.json",
       "source_sha256": "7ccd5251706ab3196e1f8c85199430272e58da5e09d109ce3271084b5a4577be",
@@ -694,13 +659,6 @@
       "source_member": "effiskill_ase2026_artifact/data/rq1/evaluation/fasterpy_gpt5mini/private/stats_rank_7.json",
       "source_sha256": "27fb0daa25b8e80539e8581f70095e4295e56a9d27f4e5fac3c59f56ab340294",
       "sha256": "27fb0daa25b8e80539e8581f70095e4295e56a9d27f4e5fac3c59f56ab340294",
-      "transformation": "byte_identical"
-    },
-    {
-      "path": "src/effiskill_artifact/data/rq1/evaluation/fasterpy_gpt5mini/public/stats_original.json",
-      "source_member": "effiskill_ase2026_artifact/data/rq1/evaluation/fasterpy_gpt5mini/public/stats_original.json",
-      "source_sha256": "201daa43ee83a802c714211c5dd22a1748c2880199ab8a4ea0c6efcf4e6135e2",
-      "sha256": "201daa43ee83a802c714211c5dd22a1748c2880199ab8a4ea0c6efcf4e6135e2",
       "transformation": "byte_identical"
     },
     {
@@ -823,13 +781,6 @@
       "transformation": "byte_identical"
     },
     {
-      "path": "src/effiskill_artifact/data/rq1/evaluation/fasterpy_qwen/public/stats_original.json",
-      "source_member": "effiskill_ase2026_artifact/data/rq1/evaluation/fasterpy_qwen/public/stats_original.json",
-      "source_sha256": "b470ab0a7b704803741ba2a829a5af69406223d6116659f2f5c557cd325b50a4",
-      "sha256": "b470ab0a7b704803741ba2a829a5af69406223d6116659f2f5c557cd325b50a4",
-      "transformation": "byte_identical"
-    },
-    {
       "path": "src/effiskill_artifact/data/rq1/evaluation/fasterpy_qwen/public/stats_rank_0.json",
       "source_member": "effiskill_ase2026_artifact/data/rq1/evaluation/fasterpy_qwen/public/stats_rank_0.json",
       "source_sha256": "ced9baab34e60595cf8fb614016296e4f7ff413e0228ae1cfe06b34985545478",
@@ -946,13 +897,6 @@
       "source_member": "effiskill_ase2026_artifact/data/rq1/evaluation/fasterpy_qwen_cpp/private/stats_rank_8.json",
       "source_sha256": "909651c1a9b00553fae953b9563fd62c5987b5038653e72290a7bccf59d77fcc",
       "sha256": "909651c1a9b00553fae953b9563fd62c5987b5038653e72290a7bccf59d77fcc",
-      "transformation": "byte_identical"
-    },
-    {
-      "path": "src/effiskill_artifact/data/rq1/evaluation/fasterpy_qwen_cpp/public/stats_canonical_cpp.json",
-      "source_member": "effiskill_ase2026_artifact/data/rq1/evaluation/fasterpy_qwen_cpp/public/stats_canonical_cpp.json",
-      "source_sha256": "c8789cb6234d3729583f4631ceb1ceced58013fed2b8d7b32b5e53a13b4476c6",
-      "sha256": "c8789cb6234d3729583f4631ceb1ceced58013fed2b8d7b32b5e53a13b4476c6",
       "transformation": "byte_identical"
     },
     {
@@ -1131,13 +1075,6 @@
       "transformation": "byte_identical"
     },
     {
-      "path": "src/effiskill_artifact/data/rq1/evaluation/gpt5-intstr/public/stats_original.json",
-      "source_member": "effiskill_ase2026_artifact/data/rq1/evaluation/gpt5-intstr/public/stats_original.json",
-      "source_sha256": "3c9077328ac87e190a9abc4d46d6dd8ad0d0fbf79e1ef8bb6161d08ea1193175",
-      "sha256": "3c9077328ac87e190a9abc4d46d6dd8ad0d0fbf79e1ef8bb6161d08ea1193175",
-      "transformation": "byte_identical"
-    },
-    {
       "path": "src/effiskill_artifact/data/rq1/evaluation/gpt5_cot_cpp/private/stats_canonical_cpp.json",
       "source_member": "effiskill_ase2026_artifact/data/rq1/evaluation/gpt5_cot_cpp/private/stats_canonical_cpp.json",
       "source_sha256": "1b2d857234c44de94b6e012958a696440172627da384a34043d3b5d1738e268f",
@@ -1198,13 +1135,6 @@
       "source_member": "effiskill_ase2026_artifact/data/rq1/evaluation/gpt5_cot_cpp/private/stats_rank_8.json",
       "source_sha256": "2acb0079aa26af16a710ff5bf680aeeb43b17c795dfc2877c35c27ae18498198",
       "sha256": "2acb0079aa26af16a710ff5bf680aeeb43b17c795dfc2877c35c27ae18498198",
-      "transformation": "byte_identical"
-    },
-    {
-      "path": "src/effiskill_artifact/data/rq1/evaluation/gpt5_cot_cpp/public/stats_canonical_cpp.json",
-      "source_member": "effiskill_ase2026_artifact/data/rq1/evaluation/gpt5_cot_cpp/public/stats_canonical_cpp.json",
-      "source_sha256": "e4894bc6286f6da4e8366612f515c8a0a91b799490e9654f4520da6e2ed08eb9",
-      "sha256": "e4894bc6286f6da4e8366612f515c8a0a91b799490e9654f4520da6e2ed08eb9",
       "transformation": "byte_identical"
     },
     {
@@ -1327,13 +1257,6 @@
       "transformation": "byte_identical"
     },
     {
-      "path": "src/effiskill_artifact/data/rq1/evaluation/gpt5_effiskill/public/stats_original.json",
-      "source_member": "effiskill_ase2026_artifact/data/rq1/evaluation/gpt5_effiskill/public/stats_original.json",
-      "source_sha256": "b1f28f5afd0a04e45320e0d053d24932d8fd12faae82fec12db21d1f04fe03b9",
-      "sha256": "b1f28f5afd0a04e45320e0d053d24932d8fd12faae82fec12db21d1f04fe03b9",
-      "transformation": "byte_identical"
-    },
-    {
       "path": "src/effiskill_artifact/data/rq1/evaluation/gpt5_effiskill/public/stats_rank_1.json",
       "source_member": "effiskill_ase2026_artifact/data/rq1/evaluation/gpt5_effiskill/public/stats_rank_1.json",
       "source_sha256": "e0bb0cb52c50952e88443d9206d9e67c1abe47c1adfc7b74ab27ddfe31832963",
@@ -1450,13 +1373,6 @@
       "source_member": "effiskill_ase2026_artifact/data/rq1/evaluation/gpt5mini_cot/private/stats_rank_8.json",
       "source_sha256": "634c4ec01c82d93f4d58461252ce5fe0370b69bb3e50017145c33cfb71287ca8",
       "sha256": "634c4ec01c82d93f4d58461252ce5fe0370b69bb3e50017145c33cfb71287ca8",
-      "transformation": "byte_identical"
-    },
-    {
-      "path": "src/effiskill_artifact/data/rq1/evaluation/gpt5mini_cot/public/stats_original.json",
-      "source_member": "effiskill_ase2026_artifact/data/rq1/evaluation/gpt5mini_cot/public/stats_original.json",
-      "source_sha256": "740cdfbbe0abbd250ee02051b8663ace0b416e7fe2decb2123e9d88c33cf4457",
-      "sha256": "740cdfbbe0abbd250ee02051b8663ace0b416e7fe2decb2123e9d88c33cf4457",
       "transformation": "byte_identical"
     },
     {
@@ -1579,13 +1495,6 @@
       "transformation": "byte_identical"
     },
     {
-      "path": "src/effiskill_artifact/data/rq1/evaluation/instru_gpt5_cpp/public/stats_canonical_cpp.json",
-      "source_member": "effiskill_ase2026_artifact/data/rq1/evaluation/instru_gpt5_cpp/public/stats_canonical_cpp.json",
-      "source_sha256": "7d5a298d62856a37efc645ec2da94a5d039c10bf8db9d0f672aefad5da5b07dd",
-      "sha256": "7d5a298d62856a37efc645ec2da94a5d039c10bf8db9d0f672aefad5da5b07dd",
-      "transformation": "byte_identical"
-    },
-    {
       "path": "src/effiskill_artifact/data/rq1/evaluation/instru_gpt5_cpp/public/stats_rank_1.json",
       "source_member": "effiskill_ase2026_artifact/data/rq1/evaluation/instru_gpt5_cpp/public/stats_rank_1.json",
       "source_sha256": "d0694dbb95463edabe8be598e0d50b7e6abd116a2d8e47509a7d72ccab92d261",
@@ -1702,13 +1611,6 @@
       "source_member": "effiskill_ase2026_artifact/data/rq1/evaluation/instru_qwen_cpp/private/stats_rank_8.json",
       "source_sha256": "34cb1ef6ca276fb611959f2ed1cbd4aaf036fbe049553b2c20d6e2a07215e0eb",
       "sha256": "34cb1ef6ca276fb611959f2ed1cbd4aaf036fbe049553b2c20d6e2a07215e0eb",
-      "transformation": "byte_identical"
-    },
-    {
-      "path": "src/effiskill_artifact/data/rq1/evaluation/instru_qwen_cpp/public/stats_canonical_cpp.json",
-      "source_member": "effiskill_ase2026_artifact/data/rq1/evaluation/instru_qwen_cpp/public/stats_canonical_cpp.json",
-      "source_sha256": "2a06ebf89a1154a5df3d50d65df28752ec63cca72f80c5d065274e036a4639a1",
-      "sha256": "2a06ebf89a1154a5df3d50d65df28752ec63cca72f80c5d065274e036a4639a1",
       "transformation": "byte_identical"
     },
     {
@@ -1831,13 +1733,6 @@
       "transformation": "byte_identical"
     },
     {
-      "path": "src/effiskill_artifact/data/rq1/evaluation/pie_rag_gpt5/public/stats_original.json",
-      "source_member": "effiskill_ase2026_artifact/data/rq1/evaluation/pie_rag_gpt5/public/stats_original.json",
-      "source_sha256": "718e548090b3aadd7a31fdcbc592a0911eba6363a0031af2b6c164cbdb03c48f",
-      "sha256": "718e548090b3aadd7a31fdcbc592a0911eba6363a0031af2b6c164cbdb03c48f",
-      "transformation": "byte_identical"
-    },
-    {
       "path": "src/effiskill_artifact/data/rq1/evaluation/pie_rag_gpt5/public/stats_rank_0.json",
       "source_member": "effiskill_ase2026_artifact/data/rq1/evaluation/pie_rag_gpt5/public/stats_rank_0.json",
       "source_sha256": "2ad3478a898b0aafdc1a3f5cf3fce6095bebd2035bb3caebb08013244f044ab0",
@@ -1954,13 +1849,6 @@
       "source_member": "effiskill_ase2026_artifact/data/rq1/evaluation/pie_rag_gpt5_cpp/private/stats_rank_8.json",
       "source_sha256": "791fbdd2d76173d762755163f84ba8e27d3b53b13cbc134f29758036398f5c5a",
       "sha256": "791fbdd2d76173d762755163f84ba8e27d3b53b13cbc134f29758036398f5c5a",
-      "transformation": "byte_identical"
-    },
-    {
-      "path": "src/effiskill_artifact/data/rq1/evaluation/pie_rag_gpt5_cpp/public/stats_canonical_cpp.json",
-      "source_member": "effiskill_ase2026_artifact/data/rq1/evaluation/pie_rag_gpt5_cpp/public/stats_canonical_cpp.json",
-      "source_sha256": "52b8afddc4d80128120af2c53a239ff04a5aa2227fbca0279e65ac131a091489",
-      "sha256": "52b8afddc4d80128120af2c53a239ff04a5aa2227fbca0279e65ac131a091489",
       "transformation": "byte_identical"
     },
     {
@@ -2083,13 +1971,6 @@
       "transformation": "byte_identical"
     },
     {
-      "path": "src/effiskill_artifact/data/rq1/evaluation/pie_rag_qwen/public/stats_original.json",
-      "source_member": "effiskill_ase2026_artifact/data/rq1/evaluation/pie_rag_qwen/public/stats_original.json",
-      "source_sha256": "e464da6d74c5a7c5a9d4d25e916ee39d7cdd585239006011a29dca613288a380",
-      "sha256": "e464da6d74c5a7c5a9d4d25e916ee39d7cdd585239006011a29dca613288a380",
-      "transformation": "byte_identical"
-    },
-    {
       "path": "src/effiskill_artifact/data/rq1/evaluation/pie_rag_qwen/public/stats_rank_0.json",
       "source_member": "effiskill_ase2026_artifact/data/rq1/evaluation/pie_rag_qwen/public/stats_rank_0.json",
       "source_sha256": "b189d32ba81f27f7077171d1932bef784c28a44ed93f928c5fe6edafa7f672e4",
@@ -2209,13 +2090,6 @@
       "transformation": "byte_identical"
     },
     {
-      "path": "src/effiskill_artifact/data/rq1/evaluation/pie_rag_qwen_cpp/public/stats_canonical_cpp.json",
-      "source_member": "effiskill_ase2026_artifact/data/rq1/evaluation/pie_rag_qwen_cpp/public/stats_canonical_cpp.json",
-      "source_sha256": "e7af8f52607015f83fcbf0cb2fbd690177987c6388ce6369754c7d64e34bfcbc",
-      "sha256": "e7af8f52607015f83fcbf0cb2fbd690177987c6388ce6369754c7d64e34bfcbc",
-      "transformation": "byte_identical"
-    },
-    {
       "path": "src/effiskill_artifact/data/rq1/evaluation/pie_rag_qwen_cpp/public/stats_rank_1.json",
       "source_member": "effiskill_ase2026_artifact/data/rq1/evaluation/pie_rag_qwen_cpp/public/stats_rank_1.json",
       "source_sha256": "58c81b97daec35c651edcbb6d6ec8ac19ca0c801269b310bd48c62d490704834",
@@ -2332,20 +2206,6 @@
       "source_member": "effiskill_ase2026_artifact/data/rq1/evaluation/qwen30b-effiskill/private/stats_rank_8.json",
       "source_sha256": "b19c1a15c6a7e2a3d58f0307a31a1b44eaa6c593382fe31c40f6a7dab44a2954",
       "sha256": "b19c1a15c6a7e2a3d58f0307a31a1b44eaa6c593382fe31c40f6a7dab44a2954",
-      "transformation": "byte_identical"
-    },
-    {
-      "path": "src/effiskill_artifact/data/rq1/evaluation/qwen30b-effiskill/public/stats_best_direct.json",
-      "source_member": "effiskill_ase2026_artifact/data/rq1/evaluation/qwen30b-effiskill/public/stats_best_direct.json",
-      "source_sha256": "87744fd4db056a640d82e41f0115dbc4c1ca597f4409c4e2eb9e5f9f51fba025",
-      "sha256": "87744fd4db056a640d82e41f0115dbc4c1ca597f4409c4e2eb9e5f9f51fba025",
-      "transformation": "byte_identical"
-    },
-    {
-      "path": "src/effiskill_artifact/data/rq1/evaluation/qwen30b-effiskill/public/stats_original.json",
-      "source_member": "effiskill_ase2026_artifact/data/rq1/evaluation/qwen30b-effiskill/public/stats_original.json",
-      "source_sha256": "a776215bddfbbd7395764353dbe3aaa66770e2a8b358fa357c0b97e4a419ec23",
-      "sha256": "a776215bddfbbd7395764353dbe3aaa66770e2a8b358fa357c0b97e4a419ec23",
       "transformation": "byte_identical"
     },
     {
@@ -2524,13 +2384,6 @@
       "transformation": "byte_identical"
     },
     {
-      "path": "src/effiskill_artifact/data/rq1/evaluation/qwen30b-instru/public/stats_original.json",
-      "source_member": "effiskill_ase2026_artifact/data/rq1/evaluation/qwen30b-instru/public/stats_original.json",
-      "source_sha256": "a7ad877dd226a4250c626a66eb609aa297074eb3da49cf13e95b30553d9d87c5",
-      "sha256": "a7ad877dd226a4250c626a66eb609aa297074eb3da49cf13e95b30553d9d87c5",
-      "transformation": "byte_identical"
-    },
-    {
       "path": "src/effiskill_artifact/data/rq1/evaluation/qwen_cot/private/stats_original.json",
       "source_member": "effiskill_ase2026_artifact/data/rq1/evaluation/qwen_cot/private/stats_original.json",
       "source_sha256": "09bfa13f77348cb458711529bbc620f64bade77901486d362c569478cf909b9f",
@@ -2591,13 +2444,6 @@
       "source_member": "effiskill_ase2026_artifact/data/rq1/evaluation/qwen_cot/private/stats_rank_8.json",
       "source_sha256": "c65ac3fde4c7db8b7fe80e71118019c5954823ef9e3de096b3219d46be9978a4",
       "sha256": "c65ac3fde4c7db8b7fe80e71118019c5954823ef9e3de096b3219d46be9978a4",
-      "transformation": "byte_identical"
-    },
-    {
-      "path": "src/effiskill_artifact/data/rq1/evaluation/qwen_cot/public/stats_original.json",
-      "source_member": "effiskill_ase2026_artifact/data/rq1/evaluation/qwen_cot/public/stats_original.json",
-      "source_sha256": "14b056edbde3154af24721579464637772d8105ae6039abc63073d3f2bd1a6f3",
-      "sha256": "14b056edbde3154af24721579464637772d8105ae6039abc63073d3f2bd1a6f3",
       "transformation": "byte_identical"
     },
     {
@@ -2720,13 +2566,6 @@
       "transformation": "byte_identical"
     },
     {
-      "path": "src/effiskill_artifact/data/rq1/evaluation/qwen_cot_cpp/public/stats_canonical_cpp.json",
-      "source_member": "effiskill_ase2026_artifact/data/rq1/evaluation/qwen_cot_cpp/public/stats_canonical_cpp.json",
-      "source_sha256": "06639827b7c62c5b7cc93dcaf5fcfaa0eadb4b79f7b5ac0de97de410f79d1714",
-      "sha256": "06639827b7c62c5b7cc93dcaf5fcfaa0eadb4b79f7b5ac0de97de410f79d1714",
-      "transformation": "byte_identical"
-    },
-    {
       "path": "src/effiskill_artifact/data/rq1/evaluation/qwen_cot_cpp/public/stats_rank_1.json",
       "source_member": "effiskill_ase2026_artifact/data/rq1/evaluation/qwen_cot_cpp/public/stats_rank_1.json",
       "source_sha256": "c66d967ddea8f59c03201439fca6e3c3d7356b23c6d3f30bf0a58c3a0b55f44c",
@@ -2843,13 +2682,6 @@
       "source_member": "effiskill_ase2026_artifact/data/rq1/evaluation/sbllm_cpp_gpt5/private/stats_rank_8.json",
       "source_sha256": "a7b6f819d22fdd1510324fed26319b4bccb69db63538b5b42a752f67b4b41cc4",
       "sha256": "a7b6f819d22fdd1510324fed26319b4bccb69db63538b5b42a752f67b4b41cc4",
-      "transformation": "byte_identical"
-    },
-    {
-      "path": "src/effiskill_artifact/data/rq1/evaluation/sbllm_cpp_gpt5/public/stats_canonical_cpp.json",
-      "source_member": "effiskill_ase2026_artifact/data/rq1/evaluation/sbllm_cpp_gpt5/public/stats_canonical_cpp.json",
-      "source_sha256": "0676633b1e50c76155cd4a10662bce40da2e74cecb8a840537833ad774d667a0",
-      "sha256": "0676633b1e50c76155cd4a10662bce40da2e74cecb8a840537833ad774d667a0",
       "transformation": "byte_identical"
     },
     {
@@ -2972,13 +2804,6 @@
       "transformation": "byte_identical"
     },
     {
-      "path": "src/effiskill_artifact/data/rq1/evaluation/sbllm_cpp_qwen/public/stats_canonical_cpp.json",
-      "source_member": "effiskill_ase2026_artifact/data/rq1/evaluation/sbllm_cpp_qwen/public/stats_canonical_cpp.json",
-      "source_sha256": "9ff9b1a7d72dbdc1b8f030353bb7f275c16429df36ed9b7fe2ba3a613a7a654b",
-      "sha256": "9ff9b1a7d72dbdc1b8f030353bb7f275c16429df36ed9b7fe2ba3a613a7a654b",
-      "transformation": "byte_identical"
-    },
-    {
       "path": "src/effiskill_artifact/data/rq1/evaluation/sbllm_cpp_qwen/public/stats_rank_1.json",
       "source_member": "effiskill_ase2026_artifact/data/rq1/evaluation/sbllm_cpp_qwen/public/stats_rank_1.json",
       "source_sha256": "c13470a29101d261d88f0696b5d93057c7bed3c58f583409549659798d5709c7",
@@ -3098,13 +2923,6 @@
       "transformation": "byte_identical"
     },
     {
-      "path": "src/effiskill_artifact/data/rq1/evaluation/sbllm_gpt/public/stats_original.json",
-      "source_member": "effiskill_ase2026_artifact/data/rq1/evaluation/sbllm_gpt/public/stats_original.json",
-      "source_sha256": "2848d9028f29d64a87c38fa33a3ca745ad3859feba633f843651132cc45d2d4f",
-      "sha256": "2848d9028f29d64a87c38fa33a3ca745ad3859feba633f843651132cc45d2d4f",
-      "transformation": "byte_identical"
-    },
-    {
       "path": "src/effiskill_artifact/data/rq1/evaluation/sbllm_gpt/public/stats_rank_1.json",
       "source_member": "effiskill_ase2026_artifact/data/rq1/evaluation/sbllm_gpt/public/stats_rank_1.json",
       "source_sha256": "054d433e156eb48e55b089d67125bda86de326d07d7f73ad47e7692b57dfa896",
@@ -3221,13 +3039,6 @@
       "source_member": "effiskill_ase2026_artifact/data/rq1/evaluation/sbllm_qwen/private/stats_rank_8.json",
       "source_sha256": "1777f2704637bb7068d0fc9e547c80d0fb7df16a34655915aa02956c2b931b68",
       "sha256": "1777f2704637bb7068d0fc9e547c80d0fb7df16a34655915aa02956c2b931b68",
-      "transformation": "byte_identical"
-    },
-    {
-      "path": "src/effiskill_artifact/data/rq1/evaluation/sbllm_qwen/public/stats_original.json",
-      "source_member": "effiskill_ase2026_artifact/data/rq1/evaluation/sbllm_qwen/public/stats_original.json",
-      "source_sha256": "9b1080e82ebaf18bec18677ddb36a76235c49207db58345ba617ab46eea6d59d",
-      "sha256": "9b1080e82ebaf18bec18677ddb36a76235c49207db58345ba617ab46eea6d59d",
       "transformation": "byte_identical"
     },
     {
@@ -3588,69 +3399,6 @@
       "transformation": "byte_identical"
     },
     {
-      "path": "src/effiskill_artifact/data/rq4/gpt5_effiskill/public/stats_original.json",
-      "source_member": "effiskill_ase2026_artifact/data/rq4/gpt5_effiskill/public/stats_original.json",
-      "source_sha256": "b1f28f5afd0a04e45320e0d053d24932d8fd12faae82fec12db21d1f04fe03b9",
-      "sha256": "b1f28f5afd0a04e45320e0d053d24932d8fd12faae82fec12db21d1f04fe03b9",
-      "transformation": "byte_identical"
-    },
-    {
-      "path": "src/effiskill_artifact/data/rq4/gpt5_effiskill/public/stats_rank_1.json",
-      "source_member": "effiskill_ase2026_artifact/data/rq4/gpt5_effiskill/public/stats_rank_1.json",
-      "source_sha256": "e0bb0cb52c50952e88443d9206d9e67c1abe47c1adfc7b74ab27ddfe31832963",
-      "sha256": "e0bb0cb52c50952e88443d9206d9e67c1abe47c1adfc7b74ab27ddfe31832963",
-      "transformation": "byte_identical"
-    },
-    {
-      "path": "src/effiskill_artifact/data/rq4/gpt5_effiskill/public/stats_rank_2.json",
-      "source_member": "effiskill_ase2026_artifact/data/rq4/gpt5_effiskill/public/stats_rank_2.json",
-      "source_sha256": "aa6119a3d5b038e5f34ffd9a1abe9d147a66f098ab1aad6d2ee23f839ea1dcd8",
-      "sha256": "aa6119a3d5b038e5f34ffd9a1abe9d147a66f098ab1aad6d2ee23f839ea1dcd8",
-      "transformation": "byte_identical"
-    },
-    {
-      "path": "src/effiskill_artifact/data/rq4/gpt5_effiskill/public/stats_rank_3.json",
-      "source_member": "effiskill_ase2026_artifact/data/rq4/gpt5_effiskill/public/stats_rank_3.json",
-      "source_sha256": "13002bd90506259547afe358097b99b172487ff9533e4bd1bec7908f37958245",
-      "sha256": "13002bd90506259547afe358097b99b172487ff9533e4bd1bec7908f37958245",
-      "transformation": "byte_identical"
-    },
-    {
-      "path": "src/effiskill_artifact/data/rq4/gpt5_effiskill/public/stats_rank_4.json",
-      "source_member": "effiskill_ase2026_artifact/data/rq4/gpt5_effiskill/public/stats_rank_4.json",
-      "source_sha256": "b6529d7833ca60a0c08c28621684f3a549d68ca1d12346962a064b67343c1b5b",
-      "sha256": "b6529d7833ca60a0c08c28621684f3a549d68ca1d12346962a064b67343c1b5b",
-      "transformation": "byte_identical"
-    },
-    {
-      "path": "src/effiskill_artifact/data/rq4/gpt5_effiskill/public/stats_rank_5.json",
-      "source_member": "effiskill_ase2026_artifact/data/rq4/gpt5_effiskill/public/stats_rank_5.json",
-      "source_sha256": "0b260d446f8175bc4c0d67f75ae5f17bd720ec1d9db319b2dd6ca1684f16402a",
-      "sha256": "0b260d446f8175bc4c0d67f75ae5f17bd720ec1d9db319b2dd6ca1684f16402a",
-      "transformation": "byte_identical"
-    },
-    {
-      "path": "src/effiskill_artifact/data/rq4/gpt5_effiskill/public/stats_rank_6.json",
-      "source_member": "effiskill_ase2026_artifact/data/rq4/gpt5_effiskill/public/stats_rank_6.json",
-      "source_sha256": "b7db9e2b46b9caf7ebb98e1e22ec9e33f457640ab9839d43efbdc3074498c8ff",
-      "sha256": "b7db9e2b46b9caf7ebb98e1e22ec9e33f457640ab9839d43efbdc3074498c8ff",
-      "transformation": "byte_identical"
-    },
-    {
-      "path": "src/effiskill_artifact/data/rq4/gpt5_effiskill/public/stats_rank_7.json",
-      "source_member": "effiskill_ase2026_artifact/data/rq4/gpt5_effiskill/public/stats_rank_7.json",
-      "source_sha256": "c4823025649fcedb876c5bb0c55f3c5439cefcdd87be7c0b5347b555c49b89f9",
-      "sha256": "c4823025649fcedb876c5bb0c55f3c5439cefcdd87be7c0b5347b555c49b89f9",
-      "transformation": "byte_identical"
-    },
-    {
-      "path": "src/effiskill_artifact/data/rq4/gpt5_effiskill/public/stats_rank_8.json",
-      "source_member": "effiskill_ase2026_artifact/data/rq4/gpt5_effiskill/public/stats_rank_8.json",
-      "source_sha256": "181232b54358e0666837c1c2c0d073379a33e2af292149e67cf21d04d036c783",
-      "sha256": "181232b54358e0666837c1c2c0d073379a33e2af292149e67cf21d04d036c783",
-      "transformation": "byte_identical"
-    },
-    {
       "path": "src/effiskill_artifact/data/rq4/gpt5mini.jsonl",
       "source_member": "effiskill_ase2026_artifact/data/rq4/gpt5mini.jsonl",
       "source_sha256": "54e8b93a23d1acd9e6d4a45b47b1890a234bd13229d76c123e71fc77c5f2f74a",
@@ -3718,76 +3466,6 @@
       "source_member": "effiskill_ase2026_artifact/data/rq4/qwen30b-effiskill/private/stats_rank_8.json",
       "source_sha256": "b19c1a15c6a7e2a3d58f0307a31a1b44eaa6c593382fe31c40f6a7dab44a2954",
       "sha256": "b19c1a15c6a7e2a3d58f0307a31a1b44eaa6c593382fe31c40f6a7dab44a2954",
-      "transformation": "byte_identical"
-    },
-    {
-      "path": "src/effiskill_artifact/data/rq4/qwen30b-effiskill/public/stats_best_direct.json",
-      "source_member": "effiskill_ase2026_artifact/data/rq4/qwen30b-effiskill/public/stats_best_direct.json",
-      "source_sha256": "87744fd4db056a640d82e41f0115dbc4c1ca597f4409c4e2eb9e5f9f51fba025",
-      "sha256": "87744fd4db056a640d82e41f0115dbc4c1ca597f4409c4e2eb9e5f9f51fba025",
-      "transformation": "byte_identical"
-    },
-    {
-      "path": "src/effiskill_artifact/data/rq4/qwen30b-effiskill/public/stats_original.json",
-      "source_member": "effiskill_ase2026_artifact/data/rq4/qwen30b-effiskill/public/stats_original.json",
-      "source_sha256": "a776215bddfbbd7395764353dbe3aaa66770e2a8b358fa357c0b97e4a419ec23",
-      "sha256": "a776215bddfbbd7395764353dbe3aaa66770e2a8b358fa357c0b97e4a419ec23",
-      "transformation": "byte_identical"
-    },
-    {
-      "path": "src/effiskill_artifact/data/rq4/qwen30b-effiskill/public/stats_rank_1.json",
-      "source_member": "effiskill_ase2026_artifact/data/rq4/qwen30b-effiskill/public/stats_rank_1.json",
-      "source_sha256": "4fa84131aaa24aa2e7024b564734178ec089b3103c36d4095409b2bd89e8e1e3",
-      "sha256": "4fa84131aaa24aa2e7024b564734178ec089b3103c36d4095409b2bd89e8e1e3",
-      "transformation": "byte_identical"
-    },
-    {
-      "path": "src/effiskill_artifact/data/rq4/qwen30b-effiskill/public/stats_rank_2.json",
-      "source_member": "effiskill_ase2026_artifact/data/rq4/qwen30b-effiskill/public/stats_rank_2.json",
-      "source_sha256": "fbb3fa47d20d46c2eea697c9ab341b0e9cb31c759ab76ed78fd965329ba354ee",
-      "sha256": "fbb3fa47d20d46c2eea697c9ab341b0e9cb31c759ab76ed78fd965329ba354ee",
-      "transformation": "byte_identical"
-    },
-    {
-      "path": "src/effiskill_artifact/data/rq4/qwen30b-effiskill/public/stats_rank_3.json",
-      "source_member": "effiskill_ase2026_artifact/data/rq4/qwen30b-effiskill/public/stats_rank_3.json",
-      "source_sha256": "40bc0a2d844cc0c094b18f2eb16069b9dbe0b6327a2fe07e7901ce1118ec932b",
-      "sha256": "40bc0a2d844cc0c094b18f2eb16069b9dbe0b6327a2fe07e7901ce1118ec932b",
-      "transformation": "byte_identical"
-    },
-    {
-      "path": "src/effiskill_artifact/data/rq4/qwen30b-effiskill/public/stats_rank_4.json",
-      "source_member": "effiskill_ase2026_artifact/data/rq4/qwen30b-effiskill/public/stats_rank_4.json",
-      "source_sha256": "cd439496cb3125724a00b4761a71ceaf48cddc7351dc37031fa876b8903561e7",
-      "sha256": "cd439496cb3125724a00b4761a71ceaf48cddc7351dc37031fa876b8903561e7",
-      "transformation": "byte_identical"
-    },
-    {
-      "path": "src/effiskill_artifact/data/rq4/qwen30b-effiskill/public/stats_rank_5.json",
-      "source_member": "effiskill_ase2026_artifact/data/rq4/qwen30b-effiskill/public/stats_rank_5.json",
-      "source_sha256": "05e9ae0ae47a7368912641eeda030786b60abeda5d9f298503b007f62330d1e1",
-      "sha256": "05e9ae0ae47a7368912641eeda030786b60abeda5d9f298503b007f62330d1e1",
-      "transformation": "byte_identical"
-    },
-    {
-      "path": "src/effiskill_artifact/data/rq4/qwen30b-effiskill/public/stats_rank_6.json",
-      "source_member": "effiskill_ase2026_artifact/data/rq4/qwen30b-effiskill/public/stats_rank_6.json",
-      "source_sha256": "8c8d071233401cdfca6b7a8997fc1fb8e25eae6220af59e6e6136920e0530ee5",
-      "sha256": "8c8d071233401cdfca6b7a8997fc1fb8e25eae6220af59e6e6136920e0530ee5",
-      "transformation": "byte_identical"
-    },
-    {
-      "path": "src/effiskill_artifact/data/rq4/qwen30b-effiskill/public/stats_rank_7.json",
-      "source_member": "effiskill_ase2026_artifact/data/rq4/qwen30b-effiskill/public/stats_rank_7.json",
-      "source_sha256": "ecca999d4df56c2257c5ba6e886268e22dfcf04b824873d6d2f4514dd542409d",
-      "sha256": "ecca999d4df56c2257c5ba6e886268e22dfcf04b824873d6d2f4514dd542409d",
-      "transformation": "byte_identical"
-    },
-    {
-      "path": "src/effiskill_artifact/data/rq4/qwen30b-effiskill/public/stats_rank_8.json",
-      "source_member": "effiskill_ase2026_artifact/data/rq4/qwen30b-effiskill/public/stats_rank_8.json",
-      "source_sha256": "81b84fe24e09c828d6d531dc6f4081cdc4fa41412a8fee111add94be82564338",
-      "sha256": "81b84fe24e09c828d6d531dc6f4081cdc4fa41412a8fee111add94be82564338",
       "transformation": "byte_identical"
     },
     {
