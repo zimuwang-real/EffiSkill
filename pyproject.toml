@@ -1,0 +1,37 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "effiskill"
+version = "0.2.0"
+description = "EffiSkill optimization baseline and offline archived-result reconstruction"
+readme = "README.md"
+requires-python = ">=3.10"
+license = {text = "MIT"}
+dependencies = ["numpy>=1.23", "pandas>=2", "matplotlib>=3.7", "PyYAML>=6"]
+
+[project.optional-dependencies]
+pipeline = ["openai>=1", "scipy>=1.10", "scikit-learn>=1.3", "tqdm>=4.66"]
+embeddings = ["sentence-transformers>=2.2", "hdbscan>=0.8.33"]
+full = ["effiskill[pipeline,embeddings]"]
+dev = ["pytest>=7"]
+
+[project.scripts]
+effiskill = "effiskill_artifact.cli:main"
+effiskill-artifact = "effiskill_artifact.cli:main"
+
+[tool.setuptools]
+package-dir = {"" = "src"}
+include-package-data = true
+
+[tool.setuptools.packages.find]
+where = ["src"]
+include = ["effiskill_artifact*"]
+namespaces = false
+
+[tool.setuptools.package-data]
+effiskill_artifact = ["data/**/*"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]

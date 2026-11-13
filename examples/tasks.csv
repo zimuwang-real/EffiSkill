@@ -1,0 +1,3 @@
+problem_id,description,slow_code
+toy_sum_squares,Return the sum of squares of integer values.,"def solve(values):
+    return sum([x * x for x in values])"

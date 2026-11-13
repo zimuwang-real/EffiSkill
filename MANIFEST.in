@@ -1,0 +1,10 @@
+include LICENSE README.md CITATION.cff PROVENANCE.md THIRD_PARTY_NOTICES.md RELEASE_CHECKLIST.md
+include constraints-tested.txt provenance.json
+recursive-include examples *.md *.csv *.jsonl
+recursive-include configs *.yaml
+recursive-include scripts *.sh
+recursive-include tests *.py
+recursive-include src/effiskill_artifact/data *
+global-exclude *.py[cod] .DS_Store ._*
+prune .pytest_cache
+prune outputs

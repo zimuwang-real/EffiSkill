@@ -1,0 +1,24 @@
+cff-version: 1.2.0
+message: "If you use this software, cite the EffiSkill software and the associated research preprint."
+title: "EffiSkill"
+type: software
+version: 0.2.0
+date-released: 2026-11-13
+license: MIT
+url: "https://github.com/zimuwang-real/EffiSkill"
+repository-code: "https://github.com/zimuwang-real/EffiSkill"
+authors:
+  - family-names: Wang
+    given-names: Zimu
+  - family-names: Shi
+    given-names: Yuling
+  - family-names: Li
+    given-names: Mengfan
+  - family-names: Liu
+    given-names: Zijun
+  - family-names: Zhang
+    given-names: Jie M.
+  - family-names: Wan
+    given-names: Chengcheng
+  - family-names: Gu
+    given-names: Xiaodong

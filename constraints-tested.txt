@@ -1,0 +1,11 @@
+# Direct dependencies validated on CPython 3.12 / macOS ARM64.
+# Optional sentence-transformers/hdbscan and model execution are not validated.
+numpy==2.2.6
+pandas==2.3.3
+matplotlib==3.10.8
+PyYAML==6.0.1
+openai==1.74.0
+scipy==1.17.0
+scikit-learn==1.7.2
+tqdm==4.66.5
+pytest==7.4.4
