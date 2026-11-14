@@ -2,18 +2,16 @@
 
 The benchmark is not redistributed with EffiSkill. This command downloads the
 statements and canonical solutions from Hugging Face and keeps the 623 tasks per
-language evaluated in the paper (the task ids in ``results/effibench-x``).
+language evaluated in the paper (listed in ``effiskill/task_ids``).
 """
 
 from __future__ import annotations
 
 import argparse
 import csv
-import json
 import sys
 from pathlib import Path
 
-from .paths import results_root
 
 DATASET = "EffiBench/effibench-x"
 SOLUTION_KEY = {"python": "python3", "cpp": "cpp"}
@@ -26,9 +24,8 @@ def task_id(row: dict) -> str:
 
 
 def paper_task_ids(language: str) -> list[str]:
-    original = "stats_original.json" if language == "python" else "stats_canonical_cpp.json"
-    path = results_root() / "effibench-x" / language / "gpt-5-mini" / "effiskill" / "private" / original
-    return sorted(json.loads(path.read_text(encoding="utf-8")))
+    path = Path(__file__).with_name("task_ids") / f"effibench_x_{language}.txt"
+    return path.read_text(encoding="utf-8").split()
 
 
 def load_rows(revision: str | None) -> list[dict]:

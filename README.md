@@ -9,17 +9,15 @@ slow/fast program pairs (Stage I), then uses a frozen skill library to diagnose 
 program, retrieve skills, compose plans and generate up to eight candidates
 without execution feedback (Stage II).
 
-[Paper](https://arxiv.org/abs/2603.27850) ·
-[Release assets](https://github.com/zimuwang-real/EffiSkill/releases/tag/v1.0.0)
+[Paper](https://arxiv.org/abs/2603.27850)
 
 ## What is in this repository
 
 | Path | Contents |
 |---|---|
 | [`skills/python`](skills/python), [`skills/cpp`](skills/cpp) | The frozen skill libraries used in the paper: 29 Python Operator Skills (Appendix A) and 28 C++ Operator Skills, plus the S1-S4 controller cards. One `SKILL.md` per card. |
-| `results/effibench-x/` | Per-task evaluation statistics for all 26 runs in Table 1 (public and private test splits). |
-| `src/effiskill/` | Stage I mining, Stage II inference, export, OPT@k scoring and paper reproduction. |
-| [Release assets](https://github.com/zimuwang-real/EffiSkill/releases/tag/v1.0.0) | The generated candidates for 24 of the 26 runs, and the EffiSkill inference logs. |
+| `src/effiskill/` | Stage I mining, Stage II inference, candidate export and OPT@k scoring. |
+| [`examples/`](examples) | Toy inputs showing the task and pair formats. |
 
 EffiBench-X tasks and tests are not redistributed. `effiskill fetch-tasks`
 downloads the tasks from the [upstream dataset](https://huggingface.co/datasets/EffiBench/effibench-x).
@@ -34,41 +32,10 @@ cd EffiSkill
 python -m pip install -e '.[pipeline]'
 ```
 
-The core install (`pip install -e .`) is enough to reproduce the tables and
-score results. The `pipeline` extra adds what `infer`, `fetch-tasks` and mining need.
+Add the `embeddings` extra (`'.[pipeline,embeddings]'`) to mine with sentence
+embeddings, as in the paper.
 
-## 1. Reproduce the paper's numbers (no API calls)
-
-```bash
-effiskill reproduce
-```
-
-This regenerates the paper's numbers from the recorded evaluation statistics:
-Table 1 and Figures 4-5 plus Appendix Tables 5-8 and the speedup geometric means
-(`outputs/rq1/`), and the skill-attachment counts behind Figure 6 / Table 9
-(`outputs/rq4/`). The tests check every value against the paper. To score a
-single run:
-
-```bash
-effiskill score --language cpp results/effibench-x/cpp/gpt-5-mini/effiskill
-```
-
-## 2. Compare against EffiSkill without running it
-
-Runtimes depend on hardware, so compare methods on your own machine. Download
-the candidates every method generated, evaluate them with your EffiBench-X
-harness alongside your method, and score everything the same way:
-
-```bash
-curl -LO https://github.com/zimuwang-real/EffiSkill/releases/download/v1.0.0/effiskill-candidates-v1.0.0.tar.gz
-tar -xzf effiskill-candidates-v1.0.0.tar.gz
-# effiskill-candidates/<language>/<model>/<method>/rank_<i>.json
-```
-
-See [Evaluation protocol](docs/evaluation.md) for the metric, the stats format
-`effiskill score` reads, and the test split.
-
-## 3. Run EffiSkill on EffiBench-X or your own programs
+## 1. Optimize programs with the released skills
 
 Any OpenAI-compatible endpoint works. The paper used `gpt-5-mini-2025-08-07`
 and `Qwen3-Coder-30B-A3B-Instruct`.
@@ -78,27 +45,37 @@ export EFFISKILL_BASE_URL=https://api.openai.com/v1
 export EFFISKILL_API_KEY=...
 export EFFISKILL_MODEL=gpt-5-mini-2025-08-07
 
-effiskill fetch-tasks --language python --out tasks/python.csv
-
 effiskill infer --language python \
-  --data tasks/python.csv \
-  --out runs/python_gpt-5-mini.jsonl --workers 8
-
-effiskill export --language python \
-  --runs runs/python_gpt-5-mini.jsonl --out-dir runs/python_gpt-5-mini
+  --data examples/tasks.csv \
+  --out runs/my_run.jsonl --workers 8
 ```
 
-`infer` uses the bundled frozen library for the chosen language and the paper's
-settings (8 candidates, up to 3 skill sets of up to 6 skills). It resumes
-interrupted runs. `export` writes `rank_1.json` … `rank_8.json` for the
-EffiBench-X evaluator; score the evaluator's output with `effiskill score`.
-
-To optimize your own programs, pass any CSV with `problem_id`, `description`
-and `canonical_solution` columns (rename them with `--statement-column` and
-`--slow-column`). Details, model settings and caveats: [Running
+The input is a CSV with `problem_id`, `description` (the problem statement)
+and `canonical_solution` (the correct program to optimize); rename the last two
+with `--statement-column` and `--slow-column`. `infer` uses the bundled library
+for the chosen language and the paper's settings (8 candidates, up to 3 skill
+sets of up to 6 skills), and resumes interrupted runs. Each output record holds
+the diagnosis, retrieved skills, plans and candidates. Details: [Running
 EffiSkill](docs/baseline.md).
 
-## 4. Mine a skill library from your own pairs
+## 2. Evaluate on your benchmark
+
+```bash
+effiskill export --language python --runs runs/my_run.jsonl --out-dir runs/my_run
+```
+
+`export` writes `rank_1.json` … `rank_8.json` (`{problem_id: {"python3" | "cpp": code}}`)
+in the EffiBench-X candidate format. Run them through your evaluator, then
+compute OPT@1..8 with `effiskill score` (see [Evaluation](docs/evaluation.md)
+for the metric and the statistics format it reads).
+
+For EffiBench-X:
+
+```bash
+effiskill fetch-tasks --language python --out tasks/python.csv   # the 623 tasks used in the paper
+```
+
+## 3. Mine a skill library from your own pairs
 
 ```bash
 effiskill pairs-to-traces --language python --input my_pairs.jsonl --output traces.jsonl \
@@ -107,15 +84,10 @@ effiskill extract-skills --language python --traces traces.jsonl --gen-dir outpu
 effiskill infer --language python --skills-root outputs/my_library/skills --data tasks.csv
 ```
 
-See [Skill mining](docs/mining.md) for input formats and the paper's settings.
-
-## Code versions
-
-The default `infer` and mining code is the pipeline described in the paper
-(Section 3, Appendices B and C). The EffiSkill runs in Table 1 were generated
-with an earlier revision of the Stage II code, kept as
-`effiskill infer --prompt-version paper-runs`; its logs are in the release
-assets. Both use the same frozen skill libraries.
+Pairs are CSV/JSONL rows with `problem_id`, `statement`, `slow_code` and
+`fast_code` (format: [`examples/pairs.jsonl`](examples/pairs.jsonl); the paper
+mined 900 pairs per language). The defaults are the paper's mining settings. See [Skill
+mining](docs/mining.md) for input formats and options.
 
 ## Citation
 
@@ -132,6 +104,5 @@ assets. Both use the same frozen skill libraries.
 
 ## License
 
-Code, skill libraries, results and generated candidates: [MIT](LICENSE).
-EffiBench-X is Apache-2.0 and is used by reference only; see
-[third-party notices](THIRD_PARTY_NOTICES.md).
+Code and skill libraries: [MIT](LICENSE). EffiBench-X is Apache-2.0 and is used
+by reference only; see [third-party notices](THIRD_PARTY_NOTICES.md).

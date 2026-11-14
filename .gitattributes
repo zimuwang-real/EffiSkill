@@ -1,5 +1,2 @@
-# Keep recorded results byte-identical across platforms.
-results/** -text
-
 # Two trailing spaces are intentional Markdown line breaks.
 *.md whitespace=-blank-at-eol

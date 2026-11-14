@@ -42,9 +42,7 @@ A CSV with one task per row:
 
 For EffiBench-X, `effiskill fetch-tasks --language <python|cpp> --out tasks.csv`
 downloads the 623 tasks per language used in the paper from the upstream
-dataset. The paper's input programs differ from the current dataset for 210
-Python and 161 C++ tasks (statements are identical); see
-[evaluation.md](evaluation.md).
+dataset.
 
 ## Running
 
@@ -61,8 +59,6 @@ Useful options (see `effiskill infer --language python --help`):
 - `--limit N`, `--start N`, `--problem-id ID`: run a subset.
 - Runs resume by default: tasks already in `--out` with status `ok` or
   `no_survivor` are skipped. Use `--no-resume` to start over.
-- `--prompt-version paper-runs`: the earlier Stage II revision that generated
-  the EffiSkill runs in Table 1 (see below).
 
 For C++, a local `g++`/`clang++` is used (when available) to record compiler
 diagnostics for each candidate. Nothing is executed.
@@ -83,20 +79,9 @@ Convert to EffiBench-X candidate files with:
 effiskill export --language cpp --runs runs/cpp_qwen.jsonl --out-dir runs/cpp_qwen
 ```
 
-## The Table 1 runs
+## Reproducibility
 
-The EffiSkill numbers in Table 1 come from an earlier revision of the Stage II
-code, available as `--prompt-version paper-runs`. It uses the same skill
-libraries, diagnosis, three-set retrieval, conservative/balanced/aggressive
-planning and K=8 budget; it does not have the route types, expected skill roles
-and impact-scored slot allocation of Appendix C. Notes:
-
-- Full logs of the four runs are in the `effiskill-inference-logs` release asset.
-- For Qwen3-Coder/Python, the evaluated pool was `survivor_candidates`, which in
-  that revision drops candidates the model itself judged statically incorrect or
-  interface-breaking (`effiskill export --field survivor_candidates`). The other
-  three settings evaluated `candidates`.
-- The GPT-5-mini/C++ run used a minor variant of the retrieval prompt that also
-  asked for a per-set `selection_role` label; that variant was not preserved.
-- LLM sampling is not deterministic, so a rerun will not regenerate the same
-  candidates. Use the released candidates when you need the paper's exact outputs.
+This is the Stage II pipeline described in Section 3 and Appendix C of the
+paper. LLM sampling is not deterministic and runtimes depend on hardware, so
+compare EffiSkill with other methods by running all of them with the same model,
+inputs, test split and machine rather than against the numbers in the paper.

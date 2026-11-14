@@ -86,11 +86,10 @@ def _write_tasks(path, language):
         writer.writerow(["toy_sum_squares", "Read integers and print the sum of their squares.", slow])
 
 
-@pytest.mark.parametrize("prompt_version", ["default", "paper-runs"])
 @pytest.mark.parametrize("language", ["python", "cpp"])
 @pytest.mark.parametrize("model", ["gpt-5-mini", "Qwen3-Coder-30B-A3B-Instruct"])
-def test_infer_and_export_offline(tmp_path, monkeypatch, language, prompt_version, model):
-    module_name = cli.MODULES[("infer", language, prompt_version)]
+def test_infer_and_export_offline(tmp_path, monkeypatch, language, model):
+    module_name = cli.MODULES[("infer", language)]
     module = importlib.import_module(f"effiskill.{module_name}")
     calls: list = []
     fake = SimpleNamespace(chat=SimpleNamespace(completions=FakeCompletions(language, calls)))
@@ -100,7 +99,7 @@ def test_infer_and_export_offline(tmp_path, monkeypatch, language, prompt_versio
     _write_tasks(tasks, language)
     out = tmp_path / "runs.jsonl"
     cli.main([
-        "infer", "--language", language, "--prompt-version", prompt_version,
+        "infer", "--language", language,
         "--data", str(tasks), "--out", str(out), "--fail-dir", str(tmp_path / "fail"),
         "--base-url", "http://fake", "--api-key", "fake", "--model", model,
     ])

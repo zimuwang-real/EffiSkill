@@ -87,7 +87,7 @@ def test_mine_then_infer_on_own_data(tmp_path, monkeypatch, language):
     ids = {card["skill_id"] for card in registry}
     assert {"S1", "S2", "S3"} <= ids and any(i.startswith("O") for i in ids)
 
-    module = importlib.import_module(f"effiskill.{cli.MODULES[('infer', language, 'default')]}")
+    module = importlib.import_module(f"effiskill.{cli.MODULES[('infer', language)]}")
     fake = SimpleNamespace(chat=SimpleNamespace(completions=FakeCompletions(language, [])))
     monkeypatch.setattr(module, "create_client", lambda base_url, api_key: fake)
     tasks = tmp_path / "tasks.csv"

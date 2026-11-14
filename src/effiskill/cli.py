@@ -13,15 +13,13 @@ usage: effiskill <command> [--language python|cpp] [options]
 
 Stage II - skill-guided optimization (needs an LLM endpoint):
   infer             generate up to 8 candidates per task with the frozen skill library
-                    (--prompt-version paper-runs: the archived code behind Table 1)
   export            turn `infer` output into EffiBench-X candidate files (rank_1..8.json)
 
 Data:
-  fetch-tasks       download the EffiBench-X tasks used in the paper into a task CSV
+  fetch-tasks       download the EffiBench-X tasks into a task CSV
 
 Evaluation:
   score             OPT@1..8 from EffiBench-X public/private evaluation statistics
-  reproduce         rebuild the paper's Table 1, figures and skill analysis from recorded results
 
 Stage I - skill mining (needs an LLM endpoint):
   pairs-to-traces   extract structured traces from slow/fast program pairs
@@ -32,10 +30,8 @@ Run `effiskill <command> --help` for the options of a command.
 """
 
 MODULES = {
-    ("infer", "python", "default"): "inference.python",
-    ("infer", "cpp", "default"): "inference.cpp",
-    ("infer", "python", "paper-runs"): "inference.paper_runs_python",
-    ("infer", "cpp", "paper-runs"): "inference.paper_runs_cpp",
+    ("infer", "python"): "inference.python",
+    ("infer", "cpp"): "inference.cpp",
     ("pairs-to-traces", "python"): "mining.pairs_to_traces",
     ("pairs-to-traces", "cpp"): "mining.pairs_to_traces_cpp",
     ("extract-skills", "python"): "mining.extract_skills",
@@ -66,15 +62,6 @@ def _run_script_module(module: ModuleType, prog: str, argv: list[str]) -> None:
         sys.argv = saved
 
 
-def _reproduce(argv: list[str]) -> None:
-    parser = argparse.ArgumentParser(prog="effiskill reproduce", description="Rebuild paper tables/figures from recorded results.")
-    parser.add_argument("--output-dir", type=Path, default=Path("outputs"))
-    args = parser.parse_args(argv)
-    _import("paper.rq1").run(args.output_dir / "rq1")
-    _import("paper.rq4").run(args.output_dir / "rq4")
-    print(f"Wrote {args.output_dir / 'rq1'} and {args.output_dir / 'rq4'}")
-
-
 def main(argv: list[str] | None = None) -> None:
     argv = list(sys.argv[1:] if argv is None else argv)
     if not argv or argv[0] in {"-h", "--help", "help"}:
@@ -84,16 +71,12 @@ def main(argv: list[str] | None = None) -> None:
 
     pre = argparse.ArgumentParser(add_help=False)
     pre.add_argument("--language", choices=["python", "cpp"], default="python")
-    pre.add_argument("--prompt-version", choices=["default", "paper-runs"], default="default")
     known, rest_without = pre.parse_known_args(rest)
     if rest_without and rest_without[0] == "--":
         rest_without = rest_without[1:]
 
     prog = f"effiskill {command}"
-    if command == "infer":
-        module = _import(MODULES[("infer", known.language, known.prompt_version)])
-        _run_script_module(module, f"{prog} --language {known.language}", rest_without)
-    elif command in {"pairs-to-traces", "extract-skills"}:
+    if command in {"infer", "pairs-to-traces", "extract-skills"}:
         module = _import(MODULES[(command, known.language)])
         _run_script_module(module, f"{prog} --language {known.language}", rest_without)
     elif command == "build-registry":
@@ -104,8 +87,6 @@ def main(argv: list[str] | None = None) -> None:
         _import("fetch_tasks").main(rest)
     elif command == "score":
         _import("scoring").main(rest)
-    elif command == "reproduce":
-        _reproduce(rest)
     else:
         print(USAGE, file=sys.stderr)
         raise SystemExit(f"effiskill: unknown command {command!r}")

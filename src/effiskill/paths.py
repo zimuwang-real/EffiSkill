@@ -1,7 +1,7 @@
 """Locations of bundled assets.
 
 EffiSkill is meant to be installed from a clone (``pip install -e .``); the
-frozen skill libraries and recorded results live at the repository root so
+frozen skill libraries live at the repository root so
 they are easy to browse. Set ``EFFISKILL_HOME`` to point at a checkout when the
 package is installed elsewhere.
 """
@@ -24,10 +24,6 @@ def skills_root(language: str) -> Path:
     if language not in {"python", "cpp"}:
         raise ValueError(f"unknown language: {language!r}")
     return repo_root() / "skills" / language
-
-
-def results_root() -> Path:
-    return repo_root() / "results"
 
 
 def outputs_root() -> Path:

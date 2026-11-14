@@ -2,8 +2,7 @@
 
 Writes one JSON file per candidate slot, ``rank_<k>.json`` with
 ``{problem_id: {lang_key: code}}``, plus the input programs
-(``original.json`` for Python, ``canonical_cpp.json`` for C++). This is the
-layout the paper's runs were evaluated from; feed it to the EffiBench-X
+(``original.json`` for Python, ``canonical_cpp.json`` for C++). Feed it to the EffiBench-X
 evaluator and score the resulting statistics with ``effiskill score``.
 """
 
@@ -58,15 +57,9 @@ def main(argv: list[str] | None = None) -> None:
     parser.add_argument("--runs", type=Path, required=True, help="JSONL written by `effiskill infer`.")
     parser.add_argument("--out-dir", type=Path, required=True)
     parser.add_argument("--language", choices=["python", "cpp"], required=True)
-    parser.add_argument(
-        "--field",
-        choices=["candidates", "survivor_candidates"],
-        default="candidates",
-        help="Which candidate list fills the slots (paper: candidates, except the Qwen/Python run).",
-    )
     parser.add_argument("--k", type=int, default=8)
     args = parser.parse_args(argv)
-    counts = export_candidates(args.runs, args.out_dir, args.language, args.field, args.k)
+    counts = export_candidates(args.runs, args.out_dir, args.language, k=args.k)
     print(json.dumps(counts))
 
 

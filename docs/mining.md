@@ -58,6 +58,6 @@ Options that go beyond the paper are off by default:
 The released libraries in `skills/python` and `skills/cpp` are the exact ones
 used for all reported results. They received a cleanup pass after
 mining, and LLM outputs vary between calls, so re-mining the same pairs gives a
-similar but not identical library. Use the released libraries to reproduce the
-paper, and the mining pipeline to build libraries for new languages, corpora or
-models.
+similar but not identical library. Use the released libraries to run EffiSkill
+as described in the paper, and the mining pipeline to build libraries for new
+languages, corpora or models.

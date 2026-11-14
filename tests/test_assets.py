@@ -1,4 +1,4 @@
-"""Sanity checks for the bundled skill libraries, task files and results."""
+"""Sanity checks for the bundled skill libraries and task lists."""
 
 from __future__ import annotations
 
@@ -8,7 +8,7 @@ from pathlib import Path
 
 import pytest
 
-from effiskill.paths import repo_root, results_root, skills_root
+from effiskill.paths import repo_root, skills_root
 
 EXPECTED_OPERATORS = {"python": 29, "cpp": 28}
 

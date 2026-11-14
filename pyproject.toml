@@ -10,7 +10,7 @@ readme = "README.md"
 requires-python = ">=3.10"
 license = {text = "MIT"}
 authors = [{name = "Zimu Wang"}, {name = "Yuling Shi"}, {name = "Mengfan Li"}, {name = "Zijun Liu"}, {name = "Jie M. Zhang"}, {name = "Chengcheng Wan"}, {name = "Xiaodong Gu"}]
-dependencies = ["numpy>=1.23", "pandas>=2", "matplotlib>=3.7"]
+dependencies = ["numpy>=1.23", "pandas>=2"]
 
 [project.optional-dependencies]
 pipeline = ["openai>=1.40", "PyYAML>=6", "scipy>=1.10", "scikit-learn>=1.3", "tqdm>=4.66", "huggingface_hub>=0.20", "pyarrow>=12"]
@@ -28,6 +28,9 @@ effiskill = "effiskill.cli:main"
 [tool.setuptools.packages.find]
 where = ["src"]
 include = ["effiskill*"]
+
+[tool.setuptools.package-data]
+effiskill = ["task_ids/*.txt"]
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]
