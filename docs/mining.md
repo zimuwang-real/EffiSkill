@@ -10,12 +10,12 @@ embeddings, as in Appendix B.4.
 effiskill pairs-to-traces --language python --input pairs.jsonl --output traces.jsonl \
   --cache-dir outputs/trace_cache --fail-dir outputs/trace_failures
 effiskill extract-skills --language python --traces traces.jsonl --gen-dir outputs/my_library
-effiskill build-registry --skills-dir outputs/my_library/skills   # rebuild after editing cards
+effiskill build-registry --skills-dir outputs/my_library/skills   # rebuild registry.json after editing cards
 ```
 
 The library is written to `<gen-dir>/skills`; pass it to
 `effiskill infer --skills-root`. The LLM endpoint is configured as in
-[baseline.md](baseline.md).
+[inference.md](inference.md).
 
 ## Input pairs
 

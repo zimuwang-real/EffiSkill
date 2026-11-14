@@ -19,9 +19,13 @@ Models used in the paper: `gpt-5-mini-2025-08-07` and
 OpenAI-compatible server works, e.g. vLLM:
 
 ```bash
-vllm serve Qwen/Qwen3-Coder-30B-A3B-Instruct --port 8000 --served-model-name Qwen3-Coder-30B-A3B-Instruct
+vllm serve Qwen/Qwen3-Coder-30B-A3B-Instruct --port 8000 --served-model-name Qwen3-Coder-30B-A3B-Instruct --max-model-len 65536
 export EFFISKILL_BASE_URL=http://localhost:8000/v1 EFFISKILL_API_KEY=EMPTY EFFISKILL_MODEL=Qwen3-Coder-30B-A3B-Instruct
 ```
+
+Generation stages request up to 35,000 completion tokens, so serve the model
+with a context length of at least 64K; shorter limits make the server reject
+those requests.
 
 **Sampling.** Each stage has a fixed temperature, with generation temperature
 rising from conservative to aggressive plans (see `DecodingProfile` in
@@ -58,7 +62,7 @@ Useful options (see `effiskill infer --language python --help`):
 - `--k 8`, `--skill-sets 3`, `--skills-per-set 6`: the paper's budget.
 - `--limit N`, `--start N`, `--problem-id ID`: run a subset.
 - Runs resume by default: tasks already in `--out` with status `ok` or
-  `no_survivor` are skipped. Use `--no-resume` to start over.
+  `no_survivor` are skipped. Use `--no-resume` to overwrite `--out` and start over.
 
 For C++, a local `g++`/`clang++` is used (when available) to record compiler
 diagnostics for each candidate. Nothing is executed.

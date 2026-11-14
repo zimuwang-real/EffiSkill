@@ -46,7 +46,6 @@ def configure_default_client(
 
 
 def _require_client() -> OpenAI:
-    global _client
     if _client is None:
         configure_default_client()
     if _client is None:

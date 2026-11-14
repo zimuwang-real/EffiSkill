@@ -1015,7 +1015,7 @@ def run_problem(
 def resolve_dataset_config(args: argparse.Namespace) -> Tuple[str, str]:
     if not args.data:
         raise ValueError(
-            "Missing --data. Create an EffiBench-X task CSV with `effiskill prepare-effibench`, "
+            "Missing --data. Create an EffiBench-X task CSV with `effiskill fetch-tasks`, "
             "or pass any CSV with problem_id, statement and slow-code columns."
         )
     return args.data, args.slow_column
@@ -1041,7 +1041,7 @@ def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(description="No-exec multi-skill-set inference pipeline")
 
     parser.add_argument("--dataset", default="effibench-x", help="Dataset label recorded in each output record.")
-    parser.add_argument("--data", default=None, help="Task CSV (see `effiskill prepare-effibench`).")
+    parser.add_argument("--data", default=None, help="Task CSV (see `effiskill fetch-tasks`).")
     parser.add_argument("--statement-column", default="description")
     parser.add_argument("--slow-column", default="canonical_solution", help="Column holding the program to optimize.")
 
@@ -1190,7 +1190,7 @@ def main() -> None:
             flush=True,
         )
 
-    with open(args.out, "a", encoding="utf-8") as out_f:
+    with open(args.out, "a" if args.resume else "w", encoding="utf-8") as out_f:
         if workers == 1:
             for row in rows:
                 try:

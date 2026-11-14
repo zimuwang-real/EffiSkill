@@ -50,9 +50,9 @@ well.
 
 ```bash
 effiskill score --language python runs/effiskill runs/my_method      # OPT@1..8 per run
-effiskill score --language python runs/effiskill --per-task-csv outputs/effiskill_tasks.csv
+effiskill score --language python runs/effiskill runs/my_method --per-task-csv outputs/per_task.csv
 ```
 
 The paper's significance tests are one-sided paired task-level bootstraps
 (10,000 replicates, percentile 95% intervals, Holm adjustment across the eight
-endpoints) over the per-task `top{k}_opt` columns that `--per-task-csv` writes for each run.
+endpoints) over the per-task `top{k}_opt` columns that `--per-task-csv` writes (one row per run and task).

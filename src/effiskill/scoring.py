@@ -149,17 +149,19 @@ def main(argv: list[str] | None = None) -> None:
     )
     parser.add_argument("run_dirs", nargs="+", type=Path, help="Run directories containing public/ and private/.")
     parser.add_argument("--language", choices=["python", "cpp"], required=True)
-    parser.add_argument("--per-task-csv", type=Path, default=None, help="Optional per-task output (single run only).")
+    parser.add_argument("--per-task-csv", type=Path, default=None, help="Optional per-task output (one row per run and task).")
     args = parser.parse_args(argv)
 
     lang_key = LANG_KEYS[args.language]
     rows = []
+    frames = []
     for run_dir in args.run_dirs:
         frame = score_run(run_dir, lang_key)
         rows.append({"run": str(run_dir), **summarize(frame)})
-        if args.per_task_csv is not None and len(args.run_dirs) == 1:
-            args.per_task_csv.parent.mkdir(parents=True, exist_ok=True)
-            frame.to_csv(args.per_task_csv, index=False)
+        frames.append(frame.assign(run=str(run_dir)) if len(args.run_dirs) > 1 else frame)
+    if args.per_task_csv is not None:
+        args.per_task_csv.parent.mkdir(parents=True, exist_ok=True)
+        pd.concat(frames, ignore_index=True).to_csv(args.per_task_csv, index=False)
     table = pd.DataFrame(rows)
     table["tasks"] = table["tasks"].astype(int)
     with pd.option_context("display.float_format", "{:.2f}".format, "display.width", 200):

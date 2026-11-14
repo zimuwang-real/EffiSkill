@@ -56,7 +56,7 @@ with `--statement-column` and `--slow-column`. `infer` uses the bundled library
 for the chosen language and the paper's settings (8 candidates, up to 3 skill
 sets of up to 6 skills), and resumes interrupted runs. Each output record holds
 the diagnosis, retrieved skills, plans and candidates. Details: [Running
-EffiSkill](docs/baseline.md).
+EffiSkill](docs/inference.md).
 
 ## 2. Evaluate on your benchmark
 

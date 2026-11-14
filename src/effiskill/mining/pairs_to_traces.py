@@ -263,7 +263,7 @@ def main() -> None:
         api_key=args.api_key,
         timeout_sec=args.timeout_sec,
     )
-    os.makedirs(os.path.dirname(args.output), exist_ok=True)
+    os.makedirs(os.path.dirname(args.output) or ".", exist_ok=True)
     os.makedirs(args.cache_dir, exist_ok=True)
     os.makedirs(args.fail_dir, exist_ok=True)
 

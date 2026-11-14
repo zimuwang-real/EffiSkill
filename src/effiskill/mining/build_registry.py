@@ -124,9 +124,9 @@ def build_registry(skills_dir: str, out_path: str) -> List[Dict[str, Any]]:
 def main() -> None:
     parser = argparse.ArgumentParser(prog="effiskill build-registry", description="Rebuild registry.json from SKILL.md cards.")
     parser.add_argument("--skills-dir", "--skills_dir", dest="skills_dir", required=True)
-    parser.add_argument("--out", required=True)
+    parser.add_argument("--out", default=None, help="Registry to write (default: <skills-dir>/registry.json).")
     args = parser.parse_args()
-    build_registry(args.skills_dir, args.out)
+    build_registry(args.skills_dir, args.out or os.path.join(args.skills_dir, "registry.json"))
 
 
 if __name__ == "__main__":

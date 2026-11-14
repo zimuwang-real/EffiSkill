@@ -1,5 +1,4 @@
 import json
-from pathlib import Path
 
 from effiskill.mining import extract_skills
 from effiskill.mining import extract_skills_cpp
