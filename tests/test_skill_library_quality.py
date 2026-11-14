@@ -1,9 +1,9 @@
 import json
 from pathlib import Path
 
-from effiskill_artifact import extract_skills
-from effiskill_artifact import extract_skills_cpp
-from effiskill_artifact.library_quality import (
+from effiskill.mining import extract_skills
+from effiskill.mining import extract_skills_cpp
+from effiskill.mining.library_quality import (
     build_library_diversity_report,
     example_sanity_warnings,
     validate_cluster_summary_quality,

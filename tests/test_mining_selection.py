@@ -1,6 +1,6 @@
 import numpy as np
 
-from effiskill_artifact.mining_selection import (
+from effiskill.mining.mining_selection import (
     apply_support_reject,
     cluster_by_similarity_threshold,
     resolve_min_support,

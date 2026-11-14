@@ -3,8 +3,8 @@ import sys
 
 import numpy as np
 
-from effiskill_artifact import extract_skills, extract_skills_cpp
-from effiskill_artifact.speedup_impact import SpeedupWeightConfig
+from effiskill.mining import extract_skills, extract_skills_cpp
+from effiskill.mining.speedup_impact import SpeedupWeightConfig
 
 
 def _write_trace(path, *, speedup_ratio):
@@ -493,6 +493,8 @@ def test_support_reject_happens_after_merge_and_bypasses_min_skill_fallback():
 def test_python_and_cpp_extractors_expose_threshold_cli(monkeypatch):
     argv = [
         "extract-skills",
+        "--traces",
+        "t.jsonl",
         "--cluster-algorithm",
         "threshold",
         "--cluster-similarity-threshold",
@@ -525,7 +527,7 @@ def test_python_and_cpp_extractors_expose_threshold_cli(monkeypatch):
 
 
 def test_python_and_cpp_threshold_cli_default_uses_one_percent_support(monkeypatch):
-    argv = ["extract-skills", "--cluster-algorithm", "threshold"]
+    argv = ["extract-skills", "--traces", "t.jsonl", "--cluster-algorithm", "threshold"]
 
     for module in (extract_skills, extract_skills_cpp):
         monkeypatch.setattr(sys, "argv", argv)
@@ -535,7 +537,7 @@ def test_python_and_cpp_threshold_cli_default_uses_one_percent_support(monkeypat
 
 
 def test_python_and_cpp_extractors_default_to_eight_summary_workers(monkeypatch):
-    argv = ["extract-skills"]
+    argv = ["extract-skills", "--traces", "t.jsonl"]
 
     for module in (extract_skills, extract_skills_cpp):
         monkeypatch.setattr(sys, "argv", argv)
@@ -641,3 +643,18 @@ def test_auto_threshold_cluster_traces_writes_pre_llm_report(monkeypatch, tmp_pa
         assert report["selected_threshold"] is not None
         assert report["selected_k"] == 2
         assert report["min_support"] == 3
+
+
+def test_cli_defaults_match_paper_configuration(monkeypatch):
+    """Appendix B: uniform stage1 KMeans clustering, seed 42, 0.76 merge threshold."""
+    for module in (extract_skills, extract_skills_cpp):
+        monkeypatch.setattr(sys, "argv", ["extract-skills", "--traces", "t.jsonl"])
+        args = module.parse_args()
+        assert args.cluster_mode == "stage1"
+        assert args.cluster_algorithm == "kmeans"
+        assert args.seed == 42
+        assert args.merge_similarity == 0.76
+        assert args.tfidf_max_features == 4096
+        assert args.embedding_model == "all-MiniLM-L6-v2"
+        assert args.speedup_aware_mining is False
+        assert args.filter_semantic_risk_traces is False

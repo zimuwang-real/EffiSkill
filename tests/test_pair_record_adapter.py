@@ -3,8 +3,8 @@ import sys
 
 import pytest
 
-from effiskill_artifact.pair_record_adapter import normalize_pair_row
-from effiskill_artifact import pairs_to_traces, pairs_to_traces_cpp
+from effiskill.mining.pair_record_adapter import normalize_pair_row
+from effiskill.mining import pairs_to_traces, pairs_to_traces_cpp
 
 
 def test_standard_pair_row_is_preserved():

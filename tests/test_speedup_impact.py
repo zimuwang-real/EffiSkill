@@ -1,4 +1,4 @@
-from effiskill_artifact.speedup_impact import (
+from effiskill.mining.speedup_impact import (
     HIGH_BAND,
     MILD_BAND,
     MODERATE_BAND,
