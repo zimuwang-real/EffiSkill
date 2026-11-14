@@ -1,23 +1,23 @@
 # Third-party notices
 
-The [MIT license](LICENSE) covers EffiSkill-authored software and documentation.
-External dependencies and upstream benchmark content retain their own licenses;
-no dependency source code or raw benchmark content is vendored here.
+The [MIT license](LICENSE) covers EffiSkill code, skill libraries, evaluation
+statistics and generated candidates. No dependency source code is vendored.
 
-The bundled research assets comprise numeric evaluation statistics, metadata-only
-candidate-to-skill assignments, and EffiSkill-derived skill cards with illustrative
-optimization snippets. Raw benchmark statements, source solutions, prompts, and
-evaluator test cases are excluded. The `private` directory name refers to the
-archived evaluator split; it contains recorded statistics rather than test cases.
+## EffiBench-X
 
-Source mappings and checksums are documented in [data provenance](docs/provenance.md).
-The review identified no concrete missing-attribution issue within that distributed
-scope; it does not assert ownership of upstream algorithms or benchmark content.
+`data/effibench-x/python_tasks.csv` and `data/effibench-x/cpp_tasks.csv` contain
+problem statements and canonical solutions from EffiBench-X, redistributed
+under the [Apache License 2.0](https://www.apache.org/licenses/LICENSE-2.0).
+The input programs are the canonical solutions as used in the paper; some
+differ from the current public dataset revision. No EffiBench-X test cases are included;
+the `public`/`private` folders under `results/` hold only recorded statistics.
 
-Upstream resources:
+- Software and evaluator: https://github.com/EffiBench/EffiBench-X
+- Dataset: https://huggingface.co/datasets/EffiBench/effibench-x
+- Paper: https://arxiv.org/abs/2505.13004
 
-- [EffiBench-X software and evaluator](https://github.com/EffiBench/EffiBench-X)
-- [EffiBench-X dataset](https://huggingface.co/datasets/EffiBench/effibench-x)
-- [Benchmark paper](https://arxiv.org/abs/2505.13004)
+## Skill mining corpora
 
-Follow each upstream resource's license and access instructions when obtaining it.
+The skill libraries are derived from slow/fast pairs drawn from PIE, Mercury,
+DeepMind Code Contests and APPS. The pairs are not redistributed. Cards contain
+short illustrative snippets generated during mining, not copied pairs.

@@ -1,0 +1,845 @@
+[
+  {
+    "skill_id": "S1",
+    "type": "meta",
+    "language": "cpp",
+    "name": "S1.Diagnose",
+    "description": "Turn structured performance traces for competitive-programming style solutions into a concise optimization brief that identifies dominant bottlenecks and prescribes abstract refactor directions."
+  },
+  {
+    "skill_id": "S2",
+    "type": "meta",
+    "language": "cpp",
+    "name": "S2 Retrieve Operator Budget",
+    "description": "Meta-skill that, given task context and an operator registry, selects a small, dynamically sized subset of operator skills most likely to improve a competitive-programming style solution (algorithmic and constant-factor optimization). It uses problem features, registry metadata, and global trace statistics to pick and order operators while respecting a budget."
+  },
+  {
+    "skill_id": "S3",
+    "type": "meta",
+    "language": "cpp",
+    "name": "S3.Strategize",
+    "description": "A reusable meta-skill for constructing executable optimization strategies: selecting algorithms, data structures, and implementation tactics; sequencing them into a coherent plan; and adapting the plan under constraints for broad competitive-programming style tasks."
+  },
+  {
+    "skill_id": "S4",
+    "type": "meta",
+    "language": "cpp",
+    "name": "S4 Judge Rank Candidate Solutions",
+    "description": "A reusable meta-skill for ranking multiple candidate competitive-programming solutions (or refactors) by balancing performance upside, correctness risk, and strength of supporting evidence."
+  },
+  {
+    "skill_id": "O001",
+    "type": "operator",
+    "language": "cpp",
+    "name": "Fast IOAnd Constant Factor Tuning",
+    "description": "Optimize I/O and hot-path implementation details without changing asymptotic complexity: switch to fast input/output, remove unnecessary memory operations and branches, simplify arithmetic, and tighten data layout (raw arrays, local state) so existing O(N), O(N log N), or DP algorithms run within strict time limits.",
+    "family": "constant_factor",
+    "tags": [
+      "io-optimization",
+      "constant-factor",
+      "implementation",
+      "arrays",
+      "sorting",
+      "dp",
+      "simulation",
+      "strings",
+      "math",
+      "single-pass"
+    ],
+    "triggers": [
+      "Algorithmic structure between slow and fast code is identical but slow version uses cin/cout (often mixed with stdio) and fast version uses scanf/printf or custom readers.",
+      "Large input/output volume: arrays sized around 1e5–1e6, many testcases, or O(N^2) grids where most time is spent reading or printing rather than computing.",
+      "Use of cin/cout without ios::sync_with_stdio(false) and cin.tie(nullptr), or frequent std::endl in loops.",
+      "Character-by-character or per-element formatted I/O inside tight loops, especially nested loops.",
+      "Heavy string or container usage in hot paths: std::string concatenation in output loops, std::stringstream for int<->string, std::set or std::vector<bool> where small fixed arrays or bitwise ops would suffice.",
+      "Full-size memset over large static arrays per testcase when only a prefix is used, or repeated zeroing of big DP tables.",
+      "Redundant arithmetic or branching in inner loops: repeated recomputation of the same expression, unnecessary abs() or modulo, complex indexing conversions.",
+      "Global overprovisioned buffers (e.g., arrays of size 100000+ for data of size n) and scattered global state instead of compact local arrays or fixed-size small vectors."
+    ]
+  },
+  {
+    "skill_id": "O002",
+    "type": "operator",
+    "language": "cpp",
+    "name": "Flat Array Radix And Fast IOOptimization",
+    "description": "Refactor performance‑critical competitive‑programming code to use flat primitive arrays, specialized integer sorting (radix/nth_element), lightweight associative structures, and fast I/O while preserving the high‑level algorithm (Dijkstra, greedy, KD‑tree, Mo’s algorithm, DSU, etc.). This operator targets large inputs (≈1e5–1e6 elements) where comparison sort, tree‑based containers, recursion, and iostreams cause",
+    "family": "graph",
+    "tags": [
+      "optimization",
+      "radix-sort",
+      "fast-io",
+      "flat-arrays",
+      "cache-locality",
+      "dijkstra",
+      "greedy",
+      "kd-tree",
+      "mo-algorithm",
+      "coordinate-compression"
+    ],
+    "triggers": [
+      "Input size up to about 1e5–1e6 and current solution already uses an optimal or near‑optimal algorithm (e.g., Dijkstra, Mo’s algorithm, KD‑tree, greedy on sorted arrays) but still runs near or over the time limit.",
+      "Heavy use of std::map/std::set/multimap or per‑node std::set in hot paths (e.g., for priority queues, dynamic sets, or ordered statistics) where keys are integers or can be compressed to integers.",
+      "Sorting of large arrays of 32‑bit or 64‑bit integers or simple pairs/tuples where only grouping or order by those integers is required, and profiling or reasoning shows std::sort or qsort dominating runtime.",
+      "Use of std::cin/std::cout or mixed C and C++ I/O in problems with hundreds of thousands of integers of input/output, showing up as I/O bottlenecks in profiles.",
+      "Dynamic ordered sets or trees used only for membership/count/maximum over a fixed small domain where coordinate compression + flat arrays or buckets would suffice."
+    ]
+  },
+  {
+    "skill_id": "O003",
+    "type": "operator",
+    "language": "cpp",
+    "name": "Fast Io And Template Slimming",
+    "description": "Implementation-level optimization for competitive C++ code when the asymptotic algorithm is already optimal (typically O(n), DSU, Dijkstra, or simple greedy/arithmetics). The operator targets constant-factor speedups and robustness by configuring fast I/O, removing unused template scaffolding and globals, right-sizing containers, tightening types, and simplifying linear passes without changing the core algorithm.",
+    "family": "constant_factor",
+    "tags": [
+      "constant-factor-optimization",
+      "fast-io",
+      "template-cleanup",
+      "memory-footprint",
+      "implementation",
+      "micro-optimization"
+    ],
+    "triggers": [
+      "Both slow and reference solutions use the same asymptotic algorithm (e.g., single linear pass, DSU, Dijkstra) but one is significantly faster in practice.",
+      "Code uses std::cin/std::cout with default synchronization (no ios::sync_with_stdio(false), no cin.tie(nullptr)) under large input/output size.",
+      "Presence of many unused globals (large arrays, vectors, graphs, utilities) and headers clearly copy-pasted from a generic template.",
+      "Global arrays or containers are sized to a fixed upper bound (e.g., MAXN, MAX_V) regardless of actual input sizes, and are fully initialized each test.",
+      "Profiling or judge feedback indicates time spent mostly in I/O, initialization, or dead work instead of the core O(F(N)) logic.",
+      "Use of std::endl in loops or macros that flush on every newline.",
+      "Simple problems (O(1) or tiny loops) accompanied by heavy templates and big unused data structures.",
+      "Use of unnecessarily wide integer types (long long for indices, or #define int long long) in tight loops where 32-bit is safe."
+    ]
+  },
+  {
+    "skill_id": "O004",
+    "type": "operator",
+    "language": "cpp",
+    "name": "Dsu Refactor Connectivity And Counts",
+    "description": "Refactor graph/connectivity/counting solutions that currently use DFS/BFS over adjacency lists or balanced-tree containers (set/map/multiset) into flat-array Disjoint Set Union (Union-Find) based implementations. Maintain component sizes and simple per‑node counters online during unions, and use optional DSU potentials for difference-constraint systems. This reduces memory, avoids recursion, and replaces",
+    "family": "graph",
+    "tags": [
+      "dsu",
+      "union_find",
+      "graph",
+      "connected_components",
+      "offline_processing",
+      "component_size",
+      "difference_constraints",
+      "mst",
+      "permutation_connectivity",
+      "bipartite_check"
+    ],
+    "triggers": [
+      "Static graph or relation set is built once, followed by many connectivity or component-membership queries.",
+      "DFS/BFS is used only to label connected components or compute simple aggregates (component size, sum, min/max) without needing explicit paths.",
+      "Adjacency lists or std::set/std::map are stored but edges are never traversed along paths; only component IDs or counts are required.",
+      "Per-component std::set/std::map/multiset is used to store vertices or values in each component for membership checking or counting.",
+      "Difference-constraint style edges (u, v, w) with invariants like col[v] = col[u] + w are processed with DFS coloring instead of a potential DSU.",
+      "Connectivity or counting logic is repeated inside a binary search or multi-pass framework over the same static graph.",
+      "Recursive DFS on graphs/trees with n up to ~1e5 or more is used in a context where only component connectivity or parity is needed (stack-depth risk)."
+    ]
+  },
+  {
+    "skill_id": "O005",
+    "type": "operator",
+    "language": "cpp",
+    "name": "Prefix Sum And Difference Array Refactor",
+    "description": "Reusable optimization pattern distilled from weighted traces.",
+    "family": "dp",
+    "tags": [
+      "prefix_sums",
+      "difference_array",
+      "intervals",
+      "offline_queries",
+      "counting",
+      "DP_optimization",
+      "array_based",
+      "constant_factor",
+      "Fenwick_tree_replacement",
+      "two_pointers"
+    ],
+    "triggers": [
+      "A Fenwick tree or segment tree used only for point updates with final offline inspection, where queries appear as query(i) - query(i-1) or range-add/point-query and there are no truly online constraints.",
+      "Range sums or interval counts computed by looping from L to R inside another loop (e.g., getsum(L,R) with a for loop), especially inside DP transitions or nested over all pairs of endpoints.",
+      "Brute-force scanning of all candidates in a value or index domain (e.g., for v in 1..U) combined with repeated binary searches or scans over the same sorted array.",
+      "Interval problems where all operations are known upfront (no updates after queries) and logic only asks for counts inside static intervals or rectangles in index/value space.",
+      "DP over intervals or sums where transitions require summing over a contiguous range of indices or values and a prefix-sum-like array already exists or could be added cheaply.",
+      "Nested loops over n combined with a BIT/segment tree for each iteration producing O(n log n) or worse, when the actual needed information is just per-position frequency or prefix/suffix aggregates.",
+      "Use of a large occupancy array or per-coordinate marking (e.g., map[x]++ in [L,R]) followed by a full scan when only the total or per-interval counts are required.",
+      "Small bounded dimensions (e.g., value range <= 1000 or exponent <= 400) where a 1D/2D frequency table plus prefix sums can replace binary searches in tight inner loops."
+    ]
+  },
+  {
+    "skill_id": "O006",
+    "type": "operator",
+    "language": "cpp",
+    "name": "Refactor Recursive DPTo Iterative Greedy And Tight State",
+    "description": "Reusable optimization pattern distilled from weighted traces.",
+    "family": "state_compression",
+    "tags": [
+      "dynamic_programming",
+      "top_down_to_bottom_up",
+      "state_compression",
+      "bitmask_dp",
+      "digit_dp",
+      "grid_dp",
+      "game_dp",
+      "greedy",
+      "memory_optimization",
+      "io_optimization"
+    ],
+    "triggers": [
+      "A memoized recursive DP over a linear index (string, array, days) with small fixed state (e.g. 2–3 options per position) and transitions only to the next index.",
+      "A recursive DP on a 2D grid where each cell depends only on a constant number of neighbors (e.g., up/left) and grid sizes up to about 1e3 x 1e3.",
+      "Digit DP or small-state DP implemented as recursion f(pos, state, tight, ) over positions with a static 3D or 4D array (often over-allocated and only partially used).",
+      "Bitmask DP with n ≤ 15–20 implemented via recursion over masks and manual memoization, plus a full dp[1<<n][ ] table initialized for all masks.",
+      "Use of memo tables with a much larger second/third dimension than semantically needed (e.g., dp[N][10] where only 0..2 are used).",
+      "DP tables that store only reachability flags or simple win/lose booleans but use int/long long and oversized dimensions (e.g., dp[105][105][105] or dp[100010][11]).",
+      "Per-iteration reallocation or reinitialization of full DP layers (double-buffering 2D arrays, memset over whole dp for every test/iteration).",
+      "Final answer requires only a simple aggregate (min/max, ratio, parity) but is computed via an O(C^2) or O(state_count^2) scan over the entire DP table."
+    ]
+  },
+  {
+    "skill_id": "O007",
+    "type": "operator",
+    "language": "cpp",
+    "name": "Parity And Streaming Refactor",
+    "description": "Refactor solutions that use explicit simulations, large auxiliary arrays, or heavy per-test initialization into parity/invariant-based decisions and single-pass streaming algorithms with tight memory and I/O. Applicable when the final result depends only on aggregate properties (parity, min/max, counts, simple predicates) rather than the full simulated state evolution. This operator systematically: (1) replaces",
+    "family": "state_compression",
+    "tags": [
+      "optimization",
+      "algorithmic-refactor",
+      "parity",
+      "simulation-to-formula",
+      "single-pass",
+      "streaming",
+      "frequency-counting",
+      "binary-search-check-optimization",
+      "memory-traffic-reduction",
+      "io-optimization"
+    ],
+    "triggers": [
+      "Game or process is simulated step-by-step with a mutable array (e.g., marking deletions or states) and repeated full scans, but the final decision is only \"which player wins\" or depends on the parity of an event count.",
+      "Presence of while(1) or do-while loops that repeatedly sweep over an entire string/array until no more changes occur, especially combined with compaction passes or marker-based deletions.",
+      "A separate check() used inside a binary search that performs O(n^2) or heavy O(n) work per mid by rewriting segments or auxiliary arrays, where the predicate ultimately depends on comparisons to the mid or simple",
+      "Multiple full passes over the same array/string (for zero detection, product computation, prefix/suffix stats, frequency counting) when the final answer is a simple aggregate (sum/product/min/max/parity/count) that",
+      "Large fixed-size global/local arrays whose size reflects an upper bound (e.g., 1e5–1e6) but where only a small logical subrange or a tiny alphabet (like digits 0–9 or letters) is actually used.",
+      "Per-testcase memset over big arrays (frequency, visited, boolean markers) when the real working set per test is much smaller or when globals are already zero-initialized.",
+      "Simulation of cycles or modular processes with an O(k) visited[] that is redundantly memset before single-use in a single test.",
+      "Use of helper functions in the innermost per-character loop that do small linear searches over a constant alphabet (e.g., get(c) scanning \"ACGT\"), rather than direct table lookup."
+    ]
+  },
+  {
+    "skill_id": "O008",
+    "type": "operator",
+    "language": "cpp",
+    "name": "Dsu Pair Grouping Via Sorted Flat Array",
+    "description": "Replace per-component std::map/std::set aggregation of DSU components with a single global pass that builds (compA, compB, index) tuples in a flat array, sorts them once, and run-length-encodes equal pairs to obtain group sizes. This removes many small associative containers, reduces DSU find calls, and greatly improves cache locality while keeping time at O(N log N).",
+    "family": "digit",
+    "tags": [
+      "dsu",
+      "sorting",
+      "pair-grouping",
+      "frequency-counting",
+      "offline-processing",
+      "arrays",
+      "cache-efficiency",
+      "map-to-sort-refactor"
+    ],
+    "triggers": [
+      "You have two DSU structures (or other equivalence relations) over the same N elements and need, for each element, the size of its intersection class (compA(element), compB(element)).",
+      "The current implementation builds a std::map or unordered_map for each DSU component to count how many members fall into each other-component, or uses std::set to store membership lists.",
+      "Profiling shows most time in associative container operations (std::map/std::set insert/find) rather than in the DSU unions themselves.",
+      "Components are identified by integer roots in [1..N], but counting intersections is done via per-component maps instead of a single global grouping of (rootA, rootB) pairs.",
+      "There exist per-component vectors like node[comp] or sets of vertices, followed by nested loops over these vectors combined with DSU find calls and map increments."
+    ]
+  },
+  {
+    "skill_id": "O009",
+    "type": "operator",
+    "language": "cpp",
+    "name": "Optimize Mod Comb Precomputation",
+    "description": "Systematically minimize time and space overhead in modular-combinatorics code by (1) using linear-time factorial/inverse-factorial precomputation instead of repeated modular exponentiation or exgcd, (2) sizing precomputation tightly to the actual input bounds, and (3) replacing generic combinatorics with algebraic or closed-form simplifications when the structure allows. Applicable to grid paths, binomial sums",
+    "family": "combinatorics",
+    "tags": [
+      "combinatorics",
+      "binomial-coefficients",
+      "modular-arithmetic",
+      "factorials",
+      "inverse-factorials",
+      "precomputation",
+      "constant-factor-optimization",
+      "NTT",
+      "FWT",
+      "grid-paths"
+    ],
+    "triggers": [
+      "Factorial / inverse-factorial tables built up to a large fixed MAXN before reading input, regardless of actual n, m.",
+      "Precomputation loops of length N that call pow(x, MOD-2) or exgcd in each iteration to build inverse or inverse-factorial arrays.",
+      "Combination helper C(n, k) that recomputes modular inverses via pow or exgcd on every call, especially inside O(n) or O(n log n) loops.",
+      "Large global arrays for combinatorics (e.g., 1e5–1e6) used for only a constant number of combinations or a single test case.",
+      "Problems that only need special cases like C(x, 2), C(x, 1), or rigid frequency patterns, but currently use full generic nCr and factorial tables.",
+      "Bitmask DP, NTT/FWT, or polynomial convolutions where factorial/inverse or root-of-unity setup dominates runtime via repeated modpow.",
+      "Binomial arguments bounded by simple functions of the input (e.g., up to h + w - 2, m + k, n + p[i] - 1), but code still uses a larger hard-coded bound.",
+      "Hot loops that repeatedly call a small combinatorics helper or perform many a * b % MOD operations with scattered '%' and 64-bit temporaries."
+    ]
+  },
+  {
+    "skill_id": "O010",
+    "type": "operator",
+    "language": "cpp",
+    "name": "Refactor To Flat Iterative Core",
+    "description": "Refactor heavy, recursion- and container-centric solutions into cache-friendly, flat-array, iterative cores. This operator preserves or improves asymptotic complexity while aggressively reducing constant factors via better memory layout, specialized data structures (arrays, bitsets, treaps), and streamlined DP / traversal structure. Typical applications include trees, graphs, binary lifting, subtree hashing",
+    "family": "graph",
+    "tags": [
+      "optimization",
+      "tree",
+      "graph",
+      "dfs",
+      "bfs",
+      "dynamic_programming",
+      "binary_lifting",
+      "bitmask_enumeration",
+      "subtree_hashing",
+      "convex_hull"
+    ],
+    "triggers": [
+      "Solution uses std::map/std::set or other tree-based associative containers in inner loops where indices are small integers and a flat array or unordered_map would suffice.",
+      "DP table is larger-than-necessary (e.g., extra dimensions or overestimated LOG) and many entries are never initialized but still iterated over.",
+      "Graph or tree traversals are written as deep recursive DFS/BFS with potential depth O(N) and noticeable function-call overhead, especially for N≈1e5.",
+      "Adjacency is stored in nested or pointer-heavy containers (vector<vector<int>>, std::map neighbors, pointer-based edge structs) with many cache-miss-prone indirections.",
+      "Binary lifting tables or doubling tables use fixed large heights (e.g., 100, 20, 18) instead of LOG≈ceil(log2 N), or have sentinel values (-1) whose checks dominate query loops.",
+      "Bitmask brute-force is implemented by recursion exploring partial assignments and recomputing full scores at non-leaf states (redundant work) instead of iterating masks iteratively.",
+      "Subtree or structural comparisons are done via explicit representations (vectors, strings, multisets) per node, leading to O(n^2) behavior where a 64-bit hash would suffice.",
+      "Fenwick trees or segment trees are used inside an O(n^2) DP, adding an unnecessary log n factor where precomputed prefix-cost tables can make transitions O(1)."
+    ]
+  },
+  {
+    "skill_id": "O011",
+    "type": "operator",
+    "language": "cpp",
+    "name": "Template Preamble Refactor",
+    "description": "Refactor or standardize the competitive-programming template/preamble (includes, macros, typedefs, utilities, fast I/O, debug helpers) without changing the underlying algorithm. The goal is to reduce compile-time overhead, improve code conciseness and reuse, and set up a robust utility layer (modular arithmetic, basic number theory, loops, fast I/O, debug gating) while preserving runtime asymptotics of the actual",
+    "family": "constant_factor",
+    "tags": [
+      "c++",
+      "template",
+      "preamble",
+      "fast-io",
+      "boilerplate",
+      "modint",
+      "number-theory-helpers",
+      "debug-macros",
+      "compile-time-optimization",
+      "competitive-programming"
+    ],
+    "triggers": [
+      "The visible slow and fast solutions are identical in all algorithmic regions; only header/includes, macros, typedefs, and utility helpers differ or are being reorganized.",
+      "The code has a very long, explicit list of standard headers (many of them unused or duplicated) and you want to replace them with a more compact include strategy (e.g., <bits/stdc++.h> or a minimal curated set).",
+      "The solution frequently uses ad-hoc implementations of gcd, pow, modular inverse, combinatorics, or small geometry/utility functions scattered throughout multiple files instead of a centralized, inline utility layer.",
+      "Debug macros or logging helpers (e.g., printing vectors, maps, traces) are present and may be active in performance-critical builds, and you want a clean way to gate or remove them in production runs.",
+      "Compile times are noticeably high due to header bloat and template-heavy libraries, even though runtime is acceptable, and you want to streamline the build without changing the main algorithm.",
+      "You are building a reusable competitive-programming library and want a consistent, minimal, and fast preamble that can be dropped into new solutions without rethinking basic utilities each time."
+    ]
+  },
+  {
+    "skill_id": "O012",
+    "type": "operator",
+    "language": "cpp",
+    "name": "Opt Grid Search And State Space",
+    "description": "Refactor grid-based search/DP solutions to eliminate redundant state dimensions, over-sized buffers, and heavy STL structures by matching the algorithm and memory layout tightly to the true constraints (grid size, sparsity, special points, weight range). Typical transformations: collapsing (position,mask) BFS to multi-source BFS + bitmask DP on a small node set, switching Dijkstra to 0-1 BFS on 0/1 weighted grids",
+    "family": "graph",
+    "tags": [
+      "grid",
+      "bfs",
+      "shortest_path",
+      "dynamic_programming",
+      "bitmask_dp",
+      "coordinate_compression",
+      "0-1_bfs",
+      "simulation",
+      "constant_factor_optimization",
+      "state_space_reduction"
+    ],
+    "triggers": [
+      "BFS or Dijkstra on an unweighted or 0/1-weighted grid using priority_queue, std::set, or other log-factor frontiers.",
+      "State space modeled as (position, subset-mask) over an h×w grid with c special cells, giving O(h*w*2^c) states when c is small (≈ 10–11).",
+      "Static 2D/3D arrays with large fixed bounds (e.g., 1000×1000, 300×300, 120×120×120) while the instance grid is much smaller or the effective search radius is limited.",
+      "Repeated full-grid memset/initialization (or constructor-based clears) per test, especially to MAXN-sized buffers not fully used by the instance.",
+      "Use of std::map or std::set for coordinate compression or membership tests on small key universes where sorted vectors + lower_bound or direct arrays would suffice.",
+      "Grid BFS that enqueues the same cell multiple times because visited marks are applied on pop instead of on push.",
+      "Use of long long for grid distances and coordinates when max path length is ≤ 1e6, and presence of global macros like #define int long long in grid BFS.",
+      "Brute-force over cells or large scalar ranges (e.g., 2^(h*w) subsets or s in [-1e6,1e6]) in constant-size or very small grids."
+    ]
+  },
+  {
+    "skill_id": "O013",
+    "type": "operator",
+    "language": "cpp",
+    "name": "Specialize Unweighted Shortest Path And Small Distance Queries",
+    "description": "Reusable optimization pattern distilled from weighted traces.",
+    "family": "graph",
+    "tags": [
+      "graph",
+      "shortest_path",
+      "BFS",
+      "Dijkstra",
+      "0-1_BFS",
+      "unweighted_graph",
+      "distance_2_check",
+      "adjacency_intersection",
+      "optimization",
+      "constant_factor"
+    ],
+    "triggers": [
+      "All edges are unweighted or explicitly added with weight 1, but the code uses Dijkstra or Bellman-Ford.",
+      "The final logic only checks whether dist[target] <= K or == K for a very small K (typically 1 or 2), not general distances.",
+      "The problem asks only for existence of a path of length 2 (or similarly tiny length), e.g. checking whether there exists a node x with edges (s, x) and (x, t).",
+      "Shortest paths are computed from a single fixed source to a single fixed target, but the algorithm builds full adjacency lists and distances to all nodes.",
+      "A DFS/BFS is run over an unweighted graph and then the code only inspects a simple local property like 'is there a neighbor of s that is also a neighbor of t'.",
+      "The code constructs an adjacency list solely to perform a BFS/DFS of depth at most 2 from the source.",
+      "Use of a priority_queue-based Dijkstra on a graph whose edge weights are only 0 or 1.",
+      "Use of Bellman-Ford (O(VE)) on a sparse graph with non-negative weights, where constraints hint that Dijkstra would suffice."
+    ]
+  },
+  {
+    "skill_id": "O014",
+    "type": "operator",
+    "language": "cpp",
+    "name": "Dp State Compression And Bound Tightening",
+    "description": "Reusable optimization pattern for dynamic programming over large tables whose transitions depend on only a few neighboring layers or a tightly bounded sum/capacity dimension. The operator rewrites 2D/3D DP or over-provisioned ranges into 1D or rolling arrays, tightens the active index ranges to the actually reachable state space, and updates in-place with reversed iteration where safe. This simultaneously reduces",
+    "family": "state_compression",
+    "tags": [
+      "dynamic_programming",
+      "state_compression",
+      "rolling_array",
+      "knapsack",
+      "subset_sum",
+      "bitmask_dp",
+      "combinatorics",
+      "counting",
+      "memory_optimization",
+      "cache_locality"
+    ],
+    "triggers": [
+      "DP state f[i][*] depends only on f[i-1][*] (or a small fixed number of previous layers), but code stores all i-layers in a large 2D/3D array.",
+      "Presence of dp[n+1][W+1] (or dp[steps][sum]) where transitions are classic 0/1 or unbounded knapsack / subset-sum updates over a sum or capacity dimension.",
+      "Use of an auxiliary buffer tmp[ ] that is fully zeroed and then copied back into dp[ ] each iteration, combined with forward iteration over DP indices.",
+      "Fixed global bounds for a sum/capacity dimension (e.g., 1e5, 5000, 2500) independent of the true reachable maximum from inputs, with loops always iterating the full range.",
+      "Per-testcase memset over large DP tables (O(n * S)) even though only a portion is touched by transitions.",
+      "Bitmask or extra small dimension k (k <= n or small constant) where dp[k][mask] ultimately collapses to a single aggregate value per mask, or intermediate k-states are only used via simple sums/complements.",
+      "Triple nested loops whose innermost loop scans an entire DP row or plane while only a shrinking/growing prefix of indices can be reachable given the processed items.",
+      "Knapsack-like DPs using width defined by a global maximum (e.g., 100000) while actual capacity or reachable sum is significantly smaller."
+    ]
+  },
+  {
+    "skill_id": "O015",
+    "type": "operator",
+    "language": "cpp",
+    "name": "Pruned Search And Numeric Tuning",
+    "description": "Systematically speed up bounded searches and numeric optimization by (1) mathematically pruning the search space, (2) reducing unnecessary precision and iterations, and (3) replacing heavy per-iteration work (sqrt, pow, gcd-heavy rational ops, full-cost evaluation) with cheaper predicates or closed-form formulas.",
+    "family": "combinatorics",
+    "tags": [
+      "optimization",
+      "constant_factor",
+      "search_pruning",
+      "numeric_methods",
+      "geometry",
+      "number_theory",
+      "binary_search_on_answer",
+      "bruteforce_optimization"
+    ],
+    "triggers": [
+      "Fixed large iteration caps or hard bounds that are not derived from input, e.g. for (i = 0; i < 1000000000; ++i) or binary search loops with 1e5+ iterations.",
+      "Nested loops over a small constant grid (e.g. up to a few thousands) where many candidate states are mathematically impossible but still tested.",
+      "Brute-force search over all pairs/triples of points or divisors (O(n^2), O(n^3)) for problems that have divisor symmetry, geometric formulas, or known algorithmic upgrades.",
+      "Numeric optimization using ternary/binary search with very tight EPS (1e-9 or smaller) and many iterations, while the judge requires only ~1e-6 to 1e-8 accuracy.",
+      "Hot loops with frequent sqrt, pow with small integer exponents, acos/sin/cos, or distance() functions that recompute sqrt(pow(dx,2)+pow(dy,2)) every time.",
+      "Search loops that always scan up to a fixed upper bound even though any acceptable candidate could terminate the search early (earliest-feasible-solution semantics).",
+      "Rational/number-theoretic computations (Frac with gcd, naive pow, non-Euclidean gcd) executed in every iteration of a bounded brute-force grid or search.",
+      "Use of generic geometric/number-theoretic toolkits (complex points, dynamic containers, binary searches on geometric parameters) where a closed-form or O(sqrt) arithmetic solution exists."
+    ]
+  },
+  {
+    "skill_id": "O016",
+    "type": "operator",
+    "language": "cpp",
+    "name": "Number Theory Prime Infra Refactor",
+    "description": "Reusable optimization pattern distilled from weighted traces.",
+    "family": "coprimality",
+    "tags": [
+      "number_theory",
+      "sieve",
+      "prime_factorization",
+      "divisors",
+      "gcd",
+      "mobius_like",
+      "DP_over_divisors",
+      "loop_optimization",
+      "memory_optimization",
+      "precomputation_elimination"
+    ],
+    "triggers": [
+      "Full SPF or sieve arrays sized to a large fixed MAX (e.g. 1e6) regardless of actual max(A[i]) or required prime range.",
+      "Per-query or per-element primality checks using trial division up to sqrt(x) without any shared precomputation or prime caching.",
+      "Nested loops that factor every number in [1..n] or every array element with repeated modulus/division by all integers or all primes each time.",
+      "Secondary passes that only re-count states (e.g. counting unique values, or values with a certain divisor count) which are already derivable inside the main sieve/factorization loop.",
+      "Sieve implementations with non-standard O(N^2) patterns (double loops over i and j up to N) or missing i*i start / prime-only inner loops.",
+      "Global state arrays or maps used to track prime usage/factors where the relevant prime set is small and static (e.g. primes up to sqrt(MAX)).",
+      "Precomputation of primes or SPF that are never actually used in the main computation.",
+      "Factorial-related divisor counting implemented by enumerating divisors or exploring exponent combinations recursively rather than using exponent-count DP."
+    ]
+  },
+  {
+    "skill_id": "O017",
+    "type": "operator",
+    "language": "cpp",
+    "name": "Sliding Window And Prefix Min DPRefactor",
+    "description": "Refactor DP or counting logic that currently uses segment trees, Fenwick trees, multisets, or maps for range minima/sums over indices into linear-time or lower-constant-factor solutions based on prefix sums, prefix/suffix minima, two-pointers, and monotonic queues. This operator targets patterns where transitions depend on contiguous index ranges whose boundaries move monotonically with the outer loop index",
+    "family": "dp",
+    "tags": [
+      "dynamic_programming",
+      "sliding_window",
+      "two_pointers",
+      "prefix_sums",
+      "prefix_min",
+      "suffix_min",
+      "monotonic_queue",
+      "range_min_query",
+      "range_sum_query",
+      "geometry_transform"
+    ],
+    "triggers": [
+      "DP transition depends on sum or min over a contiguous range of previous states dp[l..r] where l and r move monotonically with i (sliding window or growing/shrinking prefix/suffix).",
+      "Segment tree or Fenwick tree is used only for range sums/minima on a 1D array with point updates in increasing index order; no arbitrary updates or queries on past indices are needed.",
+      "Constraints of the form r - l < K or 2 * (a[i] - a[j+1]) <= T define a contiguous set of valid predecessors for each i, and as i increases the left boundary of this set moves only forward.",
+      "Range queries in DP or counting logic always involve either [1..i], [i..n], [i-L..i-R], or [l[i]..i] where l[i] is non-decreasing, suggesting prefix sums or prefix/suffix minima can replace trees.",
+      "Use of multiset or ordered_set in the innermost DP loop merely to maintain the minimum (or maximum) over an active index set that changes monotonically (indices only activated once and later deactivated once).",
+      "Geometry or interval problems where the result is a global extremum (e.g., maximum Manhattan distance, extrema of ±x ± y, or perimeter ordering) but the code uses sorting + segment trees or complex comparators instead",
+      "Presence of BIT or segment tree nodes storing affine transforms of DP states (like f[j] ± a[j] ± 2*a[j+1]) and DP transitions of the form f[i] = min_j (f[j] + linear_function(i, j)), which suggests that running minima",
+      "Top-down recursive DP with segment tree RMQ and binary search per state over up to n ≈ 1e5 indices, where an equivalent bottom-up iterative DP with prefix sums and Fenwick or sliding-window logic exists."
+    ]
+  },
+  {
+    "skill_id": "O018",
+    "type": "operator",
+    "language": "cpp",
+    "name": "Optimize Small Alphabet String Processing",
+    "description": "Refactor string-heavy solutions—especially over small fixed alphabets (e.g., lowercase letters or DNA bases)—to remove redundant passes, dynamic substring creation, heavy ordered containers, and custom hash tables. Replace them with linear or near-linear algorithms that operate directly on the original buffers, use compact frequency tables or tries, process input in a single pass when possible, and apply",
+    "family": "graph",
+    "tags": [
+      "strings",
+      "small-alphabet",
+      "frequency-counting",
+      "hashing",
+      "tries",
+      "distinct-count",
+      "kth-substring",
+      "single-pass",
+      "I/O-optimization",
+      "constant-factor-optimization"
+    ],
+    "triggers": [
+      "Code uses std::string::substr, std::string concatenation, or creates many temporary strings inside nested loops.",
+      "All inputs are stored (e.g., global array of strings) even though only aggregate statistics (counts, max/min, distinct count) are required.",
+      "Sorting or ordered containers (std::sort on all strings, std::set<string>, std::map<string, int>) are used solely for counting or membership tests where ordering is irrelevant.",
+      "A very small fixed alphabet (e.g., 'a'..'z', 'A','C','G','T','T') is present but the code uses general-purpose maps/sets or per-letter rescans of whole strings.",
+      "Multiple full passes over the same string or array are performed for simple tasks like counting statuses, finding a pattern, or validating character frequencies.",
+      "Custom modulo-based hash tables (head/nex/to arrays) are used for short fixed-alphabet strings where direct addressing or std::unordered_set/map would be simpler and faster.",
+      "Nested loops with an unused outer index or repeated substring scans (e.g., substr + find/find_first_of in hot loops) dominate runtime.",
+      "Use of cin/cout with default sync, std::endl flushes, or std::string copies on large inputs where profiling or constraints indicate an I/O-bound solution."
+    ]
+  },
+  {
+    "skill_id": "O019",
+    "type": "operator",
+    "language": "cpp",
+    "name": "Streaming Prefix Optimization",
+    "description": "Reusable optimization pattern distilled from weighted traces.",
+    "family": "dp",
+    "tags": [
+      "prefix_sum",
+      "arrays",
+      "counting",
+      "single_pass",
+      "sliding_window",
+      "fenwick_tree",
+      "parity",
+      "constant_factor_optimization",
+      "space_optimization",
+      "io_optimization"
+    ],
+    "triggers": [
+      "Code constructs a full prefix-sum array but later uses only sequential scans, the total sum, or a single running prefix value in the final expression.",
+      "Fenwick tree or segment tree is used only for maintaining a prefix count at the current index (no random queries or range updates).",
+      "Two or more large auxiliary arrays encode prefix/suffix counts or gains, but each is only ever consumed via a single max/min scan or simple arithmetic.",
+      "Per-element logic is simple (additions, comparisons) inside a tight loop, and large N (around 1e5–1e6) suggests constant factors and memory traffic dominate.",
+      "I/O loops read or write up to 1e5–1e6 integers using formatted streams, and the computation itself is linear and light.",
+      "Problem output depends only on parity, counts, or simple aggregates (e.g., even/odd sum, number of positives) rather than exact large numeric values.",
+      "Range costs depend only on local differences around an index or a fixed-length window, but current code recomputes via global prefix/suffix arrays.",
+      "Static global arrays are memset over their entire capacity each test case despite only a prefix proportional to n being used."
+    ]
+  },
+  {
+    "skill_id": "O020",
+    "type": "operator",
+    "language": "cpp",
+    "name": "Graph Traversal And Representation Tuning",
+    "description": "Refactor graph algorithms and their memory layout to exploit problem structure (functional graphs, 0/1 weights, 2-SAT implications, sparse grids, difference-constraints) and to remove unnecessary overhead (overkill SCC/Tarjan, SPFA-style relaxations, segment-tree-expanded graphs, repeated full-array clears, heap-heavy MST). Keep or improve asymptotic complexity while reducing constant factors via specialized",
+    "family": "graph",
+    "tags": [
+      "graph",
+      "DFS",
+      "BFS",
+      "0-1_BFS",
+      "SCC",
+      "Tarjan",
+      "2-SAT",
+      "SPFA",
+      "difference-constraints",
+      "functional-graph"
+    ],
+    "triggers": [
+      "Using Tarjan SCC or generic lowlink on a functional graph where each node has exactly one outgoing edge (parent pointer).",
+      "Using SPFA-style relaxation (queue/DFS with `d[v] > d[u] + w` updates) on graphs with small integer weights, especially 0/1 weights.",
+      "Encoding 2-SAT or simple boolean constraints via segment trees or inflated graph layers, resulting in far more nodes than logical variables.",
+      "Running DFS/SCC on graphs with many more technical nodes than logical entities (e.g., segment-tree nodes, duplicated layers).",
+      "Prim MST with a binary heap on a sparse graph with O(N) edges where edge candidates are already almost sorted or easily listable.",
+      "Graph defined implicitly (grid via ±n offsets, modular transitions, functional parent arrays) but built as an explicit dense adjacency list.",
+      "Distance / potential consistency check using repeated relaxations and a super-source, when constraints are equalities or simple difference constraints that can be checked in one DFS pass.",
+      "SPFA or generic SSSP on a 0/1-weight graph (or fixed small weights) where 0-1 BFS or specialized BFS would suffice."
+    ]
+  },
+  {
+    "skill_id": "O021",
+    "type": "operator",
+    "language": "cpp",
+    "name": "Dense Matrix Core Tuning",
+    "description": "Optimization pattern for small-to-medium dense matrix kernels (Floyd–Warshall-style APSP, distance-matrix checks, dense DP on graphs, GF(2) Gaussian elimination, and matrix exponentiation). The operator focuses on reducing constant factors and memory footprint without changing asymptotic complexity: tightening matrix bounds to real constraints, improving memory layout and access order, eliminating redundant",
+    "family": "graph",
+    "tags": [
+      "optimization",
+      "dense-matrix",
+      "floyd-warshall",
+      "all-pairs-shortest-path",
+      "gaussian-elimination",
+      "bitset",
+      "matrix-exponentiation",
+      "graph",
+      "DP",
+      "I/O"
+    ],
+    "triggers": [
+      "Using a large fixed-size adjacency or distance matrix (e.g., 1000x1000 or 1100x1100) when the actual number of vertices or labels is tiny (<= ~10–100).",
+      "Initialization loops that always iterate over the full static bound instead of the actual used dimension (e.g., always 0..MAXN instead of 0..n-1).",
+      "O(N^3) triple loops (Floyd–Warshall, dense DP) where profiling shows time dominated by memory traffic, branching inside the innermost loop, or redundant matrix accesses.",
+      "Distance or adjacency matrices represented as int/long long for boolean or GF(2) values, with scalar XOR in triple loops.",
+      "Multiple almost-identical matrices (e.g., separate L and S graphs, or A/B/C for distances and redundancy) updated in the same loops.",
+      "All-pairs shortest paths implemented via repeated single-source runs (e.g., Dijkstra/Bellman-Ford from every node) on very small dense graphs.",
+      "Large 3D DP or distance tensors (like C×N×N) mostly filled with INF, with heavy initialization and poor locality.",
+      "Matrix exponentiation routines where matrix objects are passed by value to operator* / operator*=, causing O(N² log K) copying overhead."
+    ]
+  },
+  {
+    "skill_id": "O022",
+    "type": "operator",
+    "language": "cpp",
+    "name": "Type And Layout Tightening",
+    "description": "Refactor solutions to keep the algorithm but aggressively tighten numeric types, memory layout, and per-iteration work. Replace oversized arrays, generic geometry, and long double / 64-bit arithmetic with problem-appropriate types and closed-form or precomputed math. Aim to keep asymptotic complexity while substantially reducing constant factors, improving cache locality, and eliminating unnecessary floating-point",
+    "family": "state_compression",
+    "tags": [
+      "constant-factor-optimization",
+      "numeric-types",
+      "memory-layout",
+      "bitmask-dp",
+      "dijkstra",
+      "probability",
+      "expected-value",
+      "computational-geometry",
+      "precomputation",
+      "implementation-detail"
+    ],
+    "triggers": [
+      "Code uses long double or std::complex<long double> while required precision is around 1e-8..1e-10 and coordinates or distances are moderate.",
+      "All problem constraints fit comfortably in 32-bit int but the implementation uses long long for loop indices, counters, and small values in hot paths.",
+      "Large static arrays are sized with loose upper bounds (e.g., 1000x1000, 31^3, or hard-coded MASK) and fully cleared each test, while actual constraints are much smaller.",
+      "Heavy floating-point loops approximate a clear mathematical pattern (geometric series, binomial probabilities, expected attempts) that suggests a closed-form or precomputable expression.",
+      "Graph or DP state uses unnecessarily wide or complex payloads (nested pairs, chars misused for indices, redundant dimensions like prev that do not affect transitions).",
+      "Geometry-heavy code spends most time in generic primitives (cross, ccw, std::vector segments, complex arithmetic) although the specific task is low-dimensional or structured (e.g., piecewise-linear in x).",
+      "Bitmask DP or inclusion–exclusion enumerations use long long, repeated gcd/lcm, or extra sorts inside 2^m loops where m ≤ 20.",
+      "Per-test arrays are zero-initialized with = {0} or cleared via double nested loops even when only the first n or m entries are used."
+    ]
+  },
+  {
+    "skill_id": "O023",
+    "type": "operator",
+    "language": "cpp",
+    "name": "Iterative Linear DPAnd Traversal Refactor",
+    "description": "Reusable optimization pattern distilled from weighted traces.",
+    "family": "graph",
+    "tags": [
+      "dynamic_programming",
+      "1d-dp",
+      "tree-dp",
+      "rerooting-dp",
+      "dfs-to-iterative",
+      "recursion-removal",
+      "implementation_optimization",
+      "memory_layout",
+      "io_optimization",
+      "type_selection"
+    ],
+    "triggers": [
+      "Top-down recursive DP f(i) with memoization where transitions only reference nearby indices such as i+1, i+2, or i-1, i-2 (classic linear DP patterns).",
+      "DP states indexed by a small number of integer parameters (1D or low-dimensional) where dependencies form a simple partial order that can be linearized into nested loops.",
+      "Recursive DFS over a tree or DAG with depth potentially proportional to n, especially when n can reach 1e5 or more, causing stack-overflow risk or heavy call overhead.",
+      "Large fixed global buffers (e.g., arrays sized to 1e6 or 1e7) clearly exceeding the true constraints inferred from input limits, causing unnecessary memory usage and initialization cost.",
+      "Use of std::vector<bool> or other bit-packed containers in hot DP loops, leading to slow proxy access compared to plain arrays.",
+      "Use of 64-bit long long for all values when constraints imply 32-bit int is sufficient, or conversely use of int where sums of many terms may overflow 32-bit range.",
+      "High profiler samples or visible bottlenecks in recursive DP/DFS functions and their small helpers (e.g., has(), gs()) rather than in the DP transitions themselves.",
+      "I/O dominated solutions using unoptimized iostreams (cin/cout) or mixed C and C++ I/O for problems with large linear input where algorithmic complexity is already optimal."
+    ]
+  },
+  {
+    "skill_id": "O024",
+    "type": "operator",
+    "language": "cpp",
+    "name": "Specialized Flow And Matching Optimizer",
+    "description": "Replace generic or over-provisioned network-flow/LP formulations with specialized max-flow, min-cost-flow, or bipartite-matching routines and cache-friendly data layouts. This operator targets cases where the mathematical structure is flow-like or bipartite but the implementation uses heavyweight abstractions (dense simplex, generic max-flow on inflated graphs, SPFA-based min-cost flow, or heuristic search). It",
+    "family": "graph",
+    "tags": [
+      "graph",
+      "network_flow",
+      "max_flow",
+      "min_cost_flow",
+      "bipartite_matching",
+      "augmenting_path",
+      "Dinic",
+      "Kuhn",
+      "shortest_path_with_potentials",
+      "constant_factor_optimization"
+    ],
+    "triggers": [
+      "A generic max-flow engine (Ford–Fulkerson or Dinic) is used to compute a maximum bipartite matching with unit capacities and no need for general multi-commodity flow.",
+      "Bipartite structure is present (two disjoint index ranges, edges only across the partition, cardinality/weight of matching requested) but the code models it as source-left-right-sink max-flow with residual edges.",
+      "Min-cost or max-cost flow is implemented with SPFA inside an augmenting-flow loop, with no reduced-cost potentials, on graphs up to a few thousand vertices and tens of thousands of edges.",
+      "A dense simplex-based LP solver is used for a small flow-like or circulation problem with integer capacities/costs and clear graph structure.",
+      "Global arrays for graph storage are dimensioned for very large MAX_V/MAX_E but only a small prefix of vertices/edges is ever used; memset/clear loops touch the entire bound each test.",
+      "Profiling or behavior shows many BFS/DFS passes over large residual networks for small logical graphs, or heavy cache misses due to large Edge structs and scattered adjacency.",
+      "Heuristic randomized search or ad-hoc permutations are used to optimize a function that can be interpreted as a closure/min-cut or flow problem (e.g., divisibility or subset-closure constraints).",
+      "Ford–Fulkerson with DFS (visited[] per augment, no levels/current-arc) is used with very large capacities, causing strong dependence on flow value F."
+    ]
+  },
+  {
+    "skill_id": "O025",
+    "type": "operator",
+    "language": "cpp",
+    "name": "Tight Dp Layout And State Bounding",
+    "description": "Refactor dynamic programming and memoization code to keep the same asymptotic complexity but substantially reduce constants and memory usage. This operator focuses on (1) tightening DP state ranges to input-driven or logically minimal bounds, (2) simplifying state representation (e.g., folding visited flags into the DP table, switching to boolean or bit-packed storage when only reachability is needed), (3) using",
+    "family": "dp",
+    "tags": [
+      "dp-optimization",
+      "state-space-bounding",
+      "memory-optimization",
+      "cache-locality",
+      "memoization",
+      "data-layout",
+      "boolean-dp",
+      "sentinel-values",
+      "constant-factor-optimization",
+      "io-optimization"
+    ],
+    "triggers": [
+      "DP or memoization tables sized by loose magic constants (e.g., 30020, 101010, 600000) instead of tight bounds derived from input constraints.",
+      "Secondary DP dimension grows from sums or unconstrained values even though the logic only needs states up to a small cap (e.g., values beyond 100 have no effect).",
+      "Parallel vis[][] (or visited[] arrays) exist with the same dimensions as dp[][] just to track computed states.",
+      "Use of 64-bit or long long DP cells where all values are bounded well within 32-bit int, especially with a moderate modulus.",
+      "DP states logically represent reachability or boolean flags, but storage uses int/long long instead of bool or bitsets.",
+      "Nested DP loops access vector<pair< >> or other AoS structures in tight inner loops, with dynamic push_back during preprocessing.",
+      "Very large DP arrays (especially multi-dimensional) cause MLE, paging, or profiler shows most time in memory operations on them.",
+      "Use of memset with a non-byte sentinel value on non-char DP arrays to represent INF or uninitialized states."
+    ]
+  },
+  {
+    "skill_id": "O026",
+    "type": "operator",
+    "language": "cpp",
+    "name": "Offline Small Radius Graph Paint",
+    "description": "Optimize multiple distance-limited updates on an undirected graph (\"paint within radius d and later paints override earlier ones\") by processing queries offline in reverse, lifting the state space to (vertex, remaining_depth), and pruning via per-vertex or per-(vertex,depth) visitation. Replace per-query BFS/DFS with a single shared traversal over this lifted state space, and use flat adjacency arrays for tight",
+    "family": "graph",
+    "tags": [
+      "graph",
+      "offline-queries",
+      "dfs",
+      "bfs-to-dfs-conversion",
+      "pruning",
+      "small-parameter-optimization",
+      "memory-layout",
+      "adjacency-array",
+      "reverse-processing"
+    ],
+    "triggers": [
+      "Undirected (or simple) graph with up to ~1e5 vertices/edges and up to ~1e5 queries.",
+      "Each query applies a radius-limited operation from a source vertex (e.g., color/mark all nodes within distance <= d).",
+      "Radius/maximum depth d is small and globally bounded (e.g., d <= 10..20).",
+      "Later queries override earlier ones (last-wins semantics), or you need the effect of all queries combined.",
+      "Baseline solution performs a BFS/DFS from scratch for every query, leading to O(q * (n + m)) time.",
+      "Code repeatedly memset() or reinitializes O(n)-sized arrays (e.g., dist[], visited[]) per query.",
+      "Adjacency is stored as vector<vector<int>> or similar STL-heavy structure, and traversal is in very tight loops.",
+      "There is a heuristic per-vertex pruning array (like maxDist[u]) but it still allows many repeated traversals."
+    ]
+  },
+  {
+    "skill_id": "O027",
+    "type": "operator",
+    "language": "cpp",
+    "name": "Small Mod Digit DP Rolling And Transition Compression",
+    "description": "Refactor digit- or remainder-based DP with a small fixed modulus into an iterative rolling-array DP with precomputed transitions and primitive modular arithmetic, eliminating recursion, oversized tables, and heavy abstractions. When the DP states arise from sums of digits in fixed bases with exponentially growing coin values, replace the DP entirely with digit-sum formulas in those bases.",
+    "family": "dp",
+    "tags": [
+      "dp",
+      "digit_dp",
+      "string_dp",
+      "modular_arithmetic",
+      "rolling_array",
+      "precomputation",
+      "constant_factor_optimization",
+      "math_optimization"
+    ],
+    "triggers": [
+      "DP states are (position, remainder mod M) or similar with a very small fixed M (e.g., <= 20).",
+      "Large DP table dimensioned as dp[N][M] where N is up to 1e5+ and only adjacent positions depend on each other.",
+      "Implementation uses recursion over position with depth proportional to input size, risking stack overflow.",
+      "Inner loops repeatedly compute (rem * base + digit) % M with small fixed base and digit range.",
+      "A generic modular integer struct or heavy operator overloading is used in tight DP loops.",
+      "DP uses 64-bit values where results are always modulo a 32-bit constant (e.g., 1e9+7).",
+      "Per-test memset over large dp[N][M] tables where only a small frontier is needed.",
+      "Problem structure is coin-change-like with denominations {1} ∪ {b1^k} ∪ {b2^k} for small integer bases b1, b2, suggesting digit-sum formulas."
+    ]
+  },
+  {
+    "skill_id": "O028",
+    "type": "operator",
+    "language": "cpp",
+    "name": "Eliminate Redundant Grid Buffers And Initialization",
+    "description": "Reusable optimization pattern distilled from weighted traces.",
+    "family": "digit",
+    "tags": [
+      "grid",
+      "constructive",
+      "constant-factor-optimization",
+      "memory-optimization",
+      "output-only",
+      "implementation"
+    ],
+    "triggers": [
+      "Large fixed-size global 2D arrays (e.g., [510][510]) that are never read in the final logic or are only used as transient buffers for printing.",
+      "memset or custom ZERO macros called on arrays that do not affect the produced output (no later reads before overwrite).",
+      "Initialization loops using hard-coded bounds (e.g., 510) instead of the actual grid dimensions H and W.",
+      "Outer loops constructing multiple grid variants (e.g., k in {0,1}) even though only one configuration is eventually printed.",
+      "Per-cell formulas using derived parameters (e.g., d computed from constraints) followed by corrective adjustments on specific cells, while a much simpler pattern using fixed constants would satisfy all constraints.",
+      "Memory or runtime being unexpectedly high for a task that only needs to print a simple H×W pattern.",
+      "Static analysis or compiler warnings about unused global arrays or variables related to grid storage."
+    ]
+  }
+]

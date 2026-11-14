@@ -1,5 +1,6 @@
-# Preserve the archived bytes used by the provenance checks, including on Windows.
-src/effiskill_artifact/data/** -text
+# Keep recorded results and inputs byte-identical across platforms.
+results/** -text
+data/** -text
 
 # Two trailing spaces are intentional Markdown line breaks.
 *.md whitespace=-blank-at-eol

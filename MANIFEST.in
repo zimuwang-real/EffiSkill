@@ -1,9 +1,11 @@
 include LICENSE README.md CITATION.cff THIRD_PARTY_NOTICES.md
-include constraints-tested.txt
-recursive-include docs *.md *.json
-recursive-include examples *.md *.csv *.jsonl
+recursive-include docs *.md
+recursive-include examples *.csv *.jsonl
 recursive-include tests *.py
-recursive-include src/effiskill_artifact/data *
+recursive-include skills *.md *.json
+recursive-include data *.csv *.md
+recursive-include results *.json *.jsonl
 global-exclude *.py[cod] .DS_Store ._*
 prune .pytest_cache
 prune outputs
+prune runs

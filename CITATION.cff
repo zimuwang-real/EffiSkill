@@ -1,13 +1,13 @@
 cff-version: 1.2.0
-message: "If you use this software, cite the EffiSkill software and the associated research preprint."
+message: "If you use EffiSkill, please cite the paper."
 title: "EffiSkill"
 type: software
-version: 0.2.1
+version: 1.0.0
 date-released: 2026-11-13
 license: MIT
 url: "https://github.com/zimuwang-real/EffiSkill"
 repository-code: "https://github.com/zimuwang-real/EffiSkill"
-authors:
+authors: &authors
   - family-names: Wang
     given-names: Zimu
   - family-names: Shi
@@ -22,3 +22,12 @@ authors:
     given-names: Chengcheng
   - family-names: Gu
     given-names: Xiaodong
+preferred-citation:
+  type: conference-paper
+  title: "Automated Code Efficiency Optimization via Agent Skill Mining"
+  authors: *authors
+  collection-title: "Findings of the Association for Computational Linguistics: EACL 2027"
+  year: 2027
+  identifiers:
+    - type: other
+      value: "arXiv:2603.27850"

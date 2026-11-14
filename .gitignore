@@ -11,6 +11,5 @@ dist/
 .DS_Store
 ._*
 outputs/
-stage1/
-stage2/
+runs/
 *.log
