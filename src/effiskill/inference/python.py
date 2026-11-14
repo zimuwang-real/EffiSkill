@@ -115,6 +115,11 @@ def load_skills_index(skills_root: str) -> Dict[str, Dict[str, str]]:
 
 def load_registry(skills_root: str) -> List[Dict[str, Any]]:
     path = os.path.join(skills_root, "registry.json")
+    if not os.path.isfile(path):
+        raise SystemExit(
+            f"No skill library at {skills_root} (missing registry.json). Pass --skills-root, or for the "
+            "bundled libraries install from a clone with `pip install -e .` or set EFFISKILL_HOME to the clone."
+        )
     with open(path, "r", encoding="utf-8") as f:
         return json.load(f)
 

@@ -13,10 +13,16 @@ from pathlib import Path
 
 
 def repo_root() -> Path:
+    """The EffiSkill checkout: ``EFFISKILL_HOME``, the source tree, or the working directory."""
     env = os.getenv("EFFISKILL_HOME", "").strip()
     if env:
         return Path(env).expanduser().resolve()
-    return Path(__file__).resolve().parents[2]
+    source_tree = Path(__file__).resolve().parents[2]
+    if (source_tree / "skills").is_dir():
+        return source_tree
+    if (Path.cwd() / "skills").is_dir():
+        return Path.cwd()
+    return source_tree
 
 
 def skills_root(language: str) -> Path:
