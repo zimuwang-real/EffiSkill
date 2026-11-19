@@ -46,3 +46,17 @@ def test_paper_task_ids_follow_upstream_naming(language):
 
 def test_no_benchmark_content_is_bundled():
     assert not (repo_root() / "data").exists()
+
+
+def test_fetch_tasks_uses_canonical_runtime_solution():
+    from effiskill.fetch_tasks import build_rows, inputs_digest
+
+    dist = [[10, 1.0, None], [12, 2.0, "print(1)\r\n"], [20, 3.0, "print(2)"]]
+    row = {
+        "id": "abc1a", "source": "atcoder", "title_slug": "demo", "description": "Line one\r\nLine two",
+        "solutions": {"python3": {"code": "print(0)", "runtimeDistribution": json.dumps(dist)}},
+    }
+    other = dict(row, id="abc2a")
+    rows = build_rows([row, other], "python", {"atcoder_abc1a_demo"})
+    assert rows == [{"problem_id": "atcoder_abc1a_demo", "description": "Line one\nLine two", "canonical_solution": "print(1)\n"}]
+    assert inputs_digest(rows) == inputs_digest(list(reversed(rows)))

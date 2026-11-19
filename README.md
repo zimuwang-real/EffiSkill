@@ -72,7 +72,7 @@ for the metric and the statistics format it reads).
 For EffiBench-X:
 
 ```bash
-effiskill fetch-tasks --language python --out tasks/python.csv   # the 623 tasks used in the paper
+effiskill fetch-tasks --language python --out tasks/python.csv   # the paper's 623 tasks and exact inputs
 ```
 
 ## 3. Mine a skill library from your own pairs

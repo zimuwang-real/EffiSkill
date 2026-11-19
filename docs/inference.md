@@ -45,8 +45,8 @@ A CSV with one task per row:
 | `canonical_solution` | `--slow-column` | the correct program to optimize |
 
 For EffiBench-X, `effiskill fetch-tasks --language <python|cpp> --out tasks.csv`
-downloads the 623 tasks per language used in the paper from the upstream
-dataset.
+downloads the 623 tasks per language used in the paper and rebuilds exactly
+the paper's inputs (see [evaluation.md](evaluation.md)).
 
 ## Running
 

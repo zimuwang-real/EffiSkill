@@ -6,12 +6,17 @@ EffiBench-X ([code](https://github.com/EffiBench/EffiBench-X),
 [dataset](https://huggingface.co/datasets/EffiBench/effibench-x)), 623 tasks per
 language, evaluated separately for Python and C++. Every method optimizes the
 same input program per task. The benchmark is not redistributed here;
-`effiskill fetch-tasks --language <python|cpp> --out tasks.csv` downloads the
-623 tasks evaluated in the paper.
+`effiskill fetch-tasks --language <python|cpp> --out tasks.csv` rebuilds the
+paper's inputs exactly from the Hugging Face dataset at revision
+[`425b58a`](https://huggingface.co/datasets/EffiBench/effibench-x/tree/425b58a834b65db44b615cfa57ffd3e2503e07ec)
+(2025-10-22) and checks them against a checksum of those inputs.
 
-The paper's input programs differ from the current dataset for 210 Python and
-161 C++ tasks (statements are identical), so numbers from the current dataset
-are not directly comparable with the paper's tables.
+The input program of each task is EffiBench-X's *canonical runtime* solution:
+the first code sample in the task's `runtimeDistribution`, which is what
+EffiBench-X's `generate_solution.py merge-canonical-solutions` writes to
+`canonical_runtime.json`. It is not the dataset's `code` field, which differs
+for 210 Python and 161 C++ of the 623 tasks. Windows line endings in the
+statements are normalized to `\n`.
 
 ## Test split
 
