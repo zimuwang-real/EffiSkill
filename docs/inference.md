@@ -73,7 +73,10 @@ One JSON record per task:
 
 - `optimization_brief`: S1 diagnosis (constraints, bottlenecks, complexity, required change).
 - `skill_sets`: retrieved Operator Skills, grouped into up to three sets.
-- `plans`: task-specific plans for each skill set.
+- `plans`: a whole-program simplification plan built from the diagnosis, plus
+  conservative, balanced and aggressive plans for each skill set. The 8
+  generation slots are assigned by expected impact and diagnosis alignment, with
+  penalties for repeating a route, skill set or mechanism.
 - `candidates`: up to 8 generated programs with static diagnostics.
 - `survivor_candidates`: the same list (static diagnostics are recorded, not used to filter).
 

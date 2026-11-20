@@ -1,11 +1,8 @@
 """Provider-compatibility helpers shared by mining and inference.
 
-The paper runs sent explicit sampling temperatures (e.g. 0.8) to every model.
-OpenAI reasoning models (GPT-5 family, o-series) reject any temperature other
-than the default, and the gateway used for the paper silently ignored it, so
-the effective temperature for GPT-5-mini was always the default. We therefore
-omit ``temperature`` for those models, which reproduces the effective request
-on the official OpenAI API. Set ``EFFISKILL_SEND_TEMPERATURE=1`` to force it.
+OpenAI reasoning models (GPT-5 family, o-series) only accept the default
+temperature, so ``temperature`` is omitted for those models. Set
+``EFFISKILL_SEND_TEMPERATURE=1`` to send it anyway.
 """
 
 from __future__ import annotations

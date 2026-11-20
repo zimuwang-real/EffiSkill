@@ -14,9 +14,8 @@ paper's inputs exactly from the Hugging Face dataset at revision
 The input program of each task is EffiBench-X's *canonical runtime* solution:
 the first code sample in the task's `runtimeDistribution`, which is what
 EffiBench-X's `generate_solution.py merge-canonical-solutions` writes to
-`canonical_runtime.json`. It is not the dataset's `code` field, which differs
-for 210 Python and 161 C++ of the 623 tasks. Windows line endings in the
-statements are normalized to `\n`.
+`canonical_runtime.json`. Windows line endings in the statements are
+normalized to `\n`.
 
 ## Test split
 

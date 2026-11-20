@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 from dataclasses import dataclass
+import re
 from typing import Any, Dict, List, Set
 
 
@@ -340,40 +341,93 @@ def _route_rank(route_type: str, must_change: str) -> int:
         return len(priority)
 
 
+REPEAT_PENALTY = {"route": 0.5, "set": 0.5, "mechanism": 1.0}
+_MECHANISM_STOPWORDS = {"a", "an", "and", "the", "of", "to", "in", "with", "for", "by", "on", "via", "use", "using"}
+
+
+def mechanism_key(plan: Dict[str, Any], index: int = 0) -> str:
+    """Normalized optimization mechanism of a plan, used to detect repeated mechanisms."""
+    text = clean_text(plan.get("optimization_mechanism")) or clean_text(plan.get("new_mechanism"))
+    tokens = [t for t in re.findall(r"[a-z0-9]+", text.lower()) if t not in _MECHANISM_STOPWORDS]
+    if not tokens:
+        return f"plan:{clean_text(plan.get('plan_id')) or index}"
+    return " ".join(tokens[:6])
+
+
 def allocate_plan_slots(plans: List[Dict[str, Any]], k: int, *, must_change: str = "mixed") -> List[int]:
+    """Assign at most k generation slots to plans before any candidate is executed.
+
+    Each plan is scored by expected impact and diagnosis alignment
+    (``plan_impact_score``); the score is reduced for every slot already given to
+    the same route, skill set, or normalized mechanism. Slots first cover distinct
+    high-upside plans (one per mechanism), and the remaining slots follow the
+    penalized score. Route priority for the diagnosed change type breaks ties.
+    """
     if k <= 0 or not plans:
         return []
     alloc = [0] * len(plans)
+    routes = [normalize_route_type(p.get("route_type")) for p in plans]
+    sets = [clean_text(p.get("set_id")) or f"plan:{i}" for i, p in enumerate(plans)]
+    mechanisms = [mechanism_key(p, i) for i, p in enumerate(plans)]
+    used: Dict[str, Dict[str, int]] = {"route": {}, "set": {}, "mechanism": {}}
 
-    by_route: Dict[str, List[int]] = {}
-    for idx, plan in enumerate(plans):
-        route = normalize_route_type(plan.get("route_type"))
-        by_route.setdefault(route, []).append(idx)
-
-    # First pass: allocate one slot to the best plan in each relevant route so the
-    # generated top-k covers mechanisms, not only style variants.
-    route_order = sorted(by_route, key=lambda r: (_route_rank(r, must_change), r))
-    for route in route_order:
-        if sum(alloc) >= k:
-            break
-        best_idx = max(
-            by_route[route],
-            key=lambda i: (plan_impact_score(plans[i]), -i),
+    def key(i: int):
+        penalty = (
+            REPEAT_PENALTY["route"] * used["route"].get(routes[i], 0)
+            + REPEAT_PENALTY["set"] * used["set"].get(sets[i], 0)
+            + REPEAT_PENALTY["mechanism"] * used["mechanism"].get(mechanisms[i], 0)
         )
-        alloc[best_idx] += 1
+        return (plan_impact_score(plans[i]) - penalty, -_route_rank(routes[i], must_change), -alloc[i], -i)
 
-    # Remaining budget goes to highest-impact plans, with route priority as a tie
-    # breaker. This still favors high-upside plans while preserving diversity.
+    def give(i: int) -> None:
+        alloc[i] += 1
+        for name, value in (("route", routes[i]), ("set", sets[i]), ("mechanism", mechanisms[i])):
+            used[name][value] = used[name].get(value, 0) + 1
+
+    covered: Set[str] = set()
     while sum(alloc) < k:
-        best_idx = max(
-            range(len(plans)),
-            key=lambda i: (
-                plan_impact_score(plans[i]),
-                -_route_rank(str(plans[i].get("route_type")), must_change),
-                -alloc[i],
-                -i,
-            ),
-        )
-        alloc[best_idx] += 1
-
+        fresh = [i for i in range(len(plans)) if alloc[i] == 0 and mechanisms[i] not in covered]
+        if not fresh:
+            break
+        best = max(fresh, key=key)
+        covered.add(mechanisms[best])
+        give(best)
+    while sum(alloc) < k:
+        give(max(range(len(plans)), key=key))
     return alloc
+
+
+def whole_program_simplification_plan(optimization_brief: Dict[str, Any]) -> Dict[str, Any]:
+    """A plan built from the S1 diagnosis alone: simplify the whole program around its bottlenecks."""
+    brief = optimization_brief if isinstance(optimization_brief, dict) else {}
+    bottlenecks = [
+        clean_text(b.get("detail") or b.get("kind"))
+        for b in (brief.get("bottlenecks") or [])
+        if isinstance(b, dict) and clean_text(b.get("detail") or b.get("kind"))
+    ]
+    complexity = brief.get("complexity") if isinstance(brief.get("complexity"), dict) else {}
+    return {
+        "set_id": "WPS",
+        "plan_id": "WPS",
+        "route_type": "algorithmic_rewrite" if normalize_must_change(brief.get("must_change")) == "algorithm" else "constant_factor",
+        "plan_style": "balanced",
+        "name": "Whole-program simplification",
+        "core_idea": (
+            "Rewrite the program around the diagnosed bottlenecks with the simplest equivalent "
+            "computation, keeping the external interface and output format unchanged."
+        ),
+        "target_complexity": clean_text(complexity.get("time")) or "no worse than the baseline",
+        "optimization_mechanism": "whole-program simplification",
+        "old_hot_path": "; ".join(bottlenecks[:3]),
+        "new_mechanism": "simplified program without redundant work",
+        "expected_speedup_band": "moderate",
+        "impact_skill_ids": [],
+        "must_change_alignment": "matches",
+        "risks": [clean_text(r) for r in (brief.get("risks") or []) if clean_text(r)][:4],
+        "steps": [
+            "Remove computation whose result is never used.",
+            "Drop sorting, copying, and materialization that the output does not need.",
+            "Merge repeated traversals of the same data into one pass.",
+            "Replace unnecessarily general data structures with the simplest adequate ones.",
+        ],
+    }

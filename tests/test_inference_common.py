@@ -242,3 +242,42 @@ def test_python_runner_keeps_generated_candidates_even_when_diagnostics_fail(mon
     assert result["survivor_candidates"][0]["static_verdict"] == "fail"
     assert result["survivor_candidates"][0]["change_summary"] == {"removed_hot_path": ""}
     assert calls[0][1] == 0.3
+
+
+def test_allocate_plan_slots_penalizes_repeated_mechanisms():
+    def plan(pid, set_id, mechanism, band):
+        return {
+            "plan_id": pid,
+            "set_id": set_id,
+            "route_type": "data_structure",
+            "plan_style": "balanced",
+            "expected_speedup_band": band,
+            "must_change_alignment": "matches",
+            "optimization_mechanism": mechanism,
+        }
+
+    plans = [
+        plan("a1", "A", "prefix sums over counts", "very_high"),
+        plan("a2", "A", "prefix sums over counts", "very_high"),
+        plan("b1", "B", "two-pointer sweep", "moderate"),
+    ]
+    # One slot per distinct mechanism first, so the moderate but distinct plan is covered.
+    assert allocate_plan_slots(plans, k=2, must_change="implementation") == [1, 0, 1]
+
+
+def test_whole_program_simplification_plan_uses_diagnosis():
+    from effiskill.inference.common import whole_program_simplification_plan
+
+    plan = whole_program_simplification_plan(
+        {
+            "must_change": "algorithm",
+            "complexity": {"time": "O(n^2)"},
+            "bottlenecks": [{"kind": "loop", "detail": "nested scan over pairs"}],
+            "risks": ["overflow"],
+        }
+    )
+    assert plan["plan_id"] == "WPS"
+    assert plan["route_type"] == "algorithmic_rewrite"
+    assert plan["old_hot_path"] == "nested scan over pairs"
+    assert plan["risks"] == ["overflow"]
+    assert len(plan["steps"]) == 4

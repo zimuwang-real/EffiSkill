@@ -33,6 +33,7 @@ from .common import (
     allocate_plan_slots as _common_allocate_plan_slots,
     decoding_profile_for,
     normalize_plans as _common_normalize_plans,
+    whole_program_simplification_plan,
     normalize_skill_sets as _common_normalize_skill_sets,
     op_registry_meta as _common_op_registry_meta,
     plan_impact_score as _common_plan_impact_score,
@@ -340,6 +341,9 @@ def build_s1_messages(meta_skill: str, statement: str, slow_code: str) -> List[D
         Follow the meta skill guidance below.
 
         {meta_skill}
+
+        Explicitly check for unused computation, avoidable sorting, materialization,
+        repeated traversal, and unnecessarily general data structures.
 
         Return strict JSON only.
         Required fields:
@@ -885,7 +889,7 @@ def run_problem(
     result["skill_sets"] = skill_sets
 
     # S3 Plans per skill set
-    all_plans: List[Dict[str, Any]] = []
+    all_plans: List[Dict[str, Any]] = [whole_program_simplification_plan(s1 if isinstance(s1, dict) else {})]
     for ss in skill_sets:
         set_id = ss["set_id"]
         skill_bodies = []
@@ -914,7 +918,7 @@ def run_problem(
         )
         all_plans.extend(plans)
 
-    if not all_plans:
+    if len(all_plans) == 1:
         return {**result, "status": "failed", "error_stage": "s3_empty"}
     result["plans"] = all_plans
 
@@ -959,7 +963,6 @@ def run_problem(
                 "change_summary": gen.get("change_summary"),
             }
 
-            # Deprecated no-op: the old extra LLM sanity-fix stage was unstable.
             _ = sanity_fix
             cand["sanity_fixes"] = []
 
@@ -996,8 +999,7 @@ def run_problem(
     if not candidates:
         return {**result, "status": "failed", "error_stage": "s4_empty"}
 
-    # Keep diagnostics for analysis, but do not discard generated candidates at
-    # this stage. The old static/interface gate was brittle and reduced recall.
+    # Static diagnostics are recorded on each candidate; all candidates are kept.
     _ = require_syntax
     survivors = list(candidates)
 
@@ -1055,7 +1057,7 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument(
         "--no-cache",
         action="store_true",
-        help="Deprecated in inference: successful LLM cache is already disabled.",
+        help=argparse.SUPPRESS,
     )
     parser.add_argument("--fail-dir", default="outputs/llm_failures")
 
@@ -1071,12 +1073,12 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument(
         "--sanity-fix",
         action="store_true",
-        help="Deprecated no-op: the extra LLM sanity-fix stage is disabled.",
+        help=argparse.SUPPRESS,
     )
     parser.add_argument(
         "--require-syntax",
         action="store_true",
-        help="Deprecated no-op: syntax diagnostics are still recorded, but candidates are not filtered out.",
+        help=argparse.SUPPRESS,
     )
     parser.add_argument("--limit", type=int, default=-1, help="-1 means full dataset")
     parser.add_argument("--start", type=int, default=0)
